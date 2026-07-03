@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { Product } from "@/lib/schema";
 import { Badge } from "@/components/ui/badge";
+import { getErrorMessage } from "@/lib/apiClientError";
 
 interface Stats {
   totalProducts: number;
@@ -28,11 +29,20 @@ export default function Dashboard({
     page: "dashboard" | "products" | "users" | "locations",
   ) => void;
 }) {
-  const { data: stats, isLoading: statsLoading } = useQuery<Stats>({
+  const {
+    data: stats,
+    isLoading: statsLoading,
+    isError: statsError,
+    error: statsErrorObj,
+  } = useQuery<Stats>({
     queryKey: ["/api/stats"],
   });
 
-  const { data: products } = useQuery<Product[]>({
+  const {
+    data: products,
+    isError: productsError,
+    error: productsErrorObj,
+  } = useQuery<Product[]>({
     queryKey: ["/api/products"],
   });
 
@@ -98,6 +108,31 @@ export default function Dashboard({
       testId: "card-categories",
     },
   ];
+
+  if (statsError || productsError) {
+    return (
+      <div className="space-y-6" data-testid="dashboard-page">
+        <div>
+          <h1
+            className="text-xl font-semibold tracking-tight sm:text-2xl"
+            data-testid="text-page-title"
+          >
+            Dashboard
+          </h1>
+        </div>
+        <Card>
+          <CardContent className="flex items-center justify-center py-16">
+            <div className="text-sm text-destructive">
+              {getErrorMessage(
+                statsErrorObj ?? productsErrorObj,
+                "Failed to load dashboard data",
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6" data-testid="dashboard-page">

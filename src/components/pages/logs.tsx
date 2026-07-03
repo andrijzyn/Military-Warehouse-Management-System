@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { createApiClientErrorFromResponse } from "@/lib/apiClientError";
 import { LogsFilters } from "./logs-filters";
 import { LogsTable, type AuditAction, type AuditLogItem } from "./logs-table";
 
@@ -10,6 +12,7 @@ export default function LogsPage() {
   const [logs, setLogs] = useState<AuditLogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [selectedTable, setSelectedTable] = useState("all");
   const [selectedAction, setSelectedAction] = useState<AuditAction | "all">(
@@ -37,19 +40,22 @@ export default function LogsPage() {
         );
 
         if (!res.ok) {
-          console.error(
-            "Failed to fetch audit logs:",
-            res.status,
-            res.statusText,
+          const apiError = await createApiClientErrorFromResponse(
+            res,
+            "Failed to fetch audit logs",
           );
+          setLoadError(apiError.message);
           setLogs([]);
           return;
         }
 
         const data = await res.json();
+        setLoadError(null);
         setLogs(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Failed to fetch audit logs:", error);
+        setLoadError(
+          error instanceof Error ? error.message : "Failed to fetch audit logs",
+        );
         setLogs([]);
       } finally {
         setLoading(false);
@@ -119,12 +125,20 @@ export default function LogsPage() {
         onReset={handleResetFilters}
       />
 
-      <LogsTable
-        loading={loading}
-        logs={logs}
-        expandedRows={expandedRows}
-        onToggleRow={toggleRow}
-      />
+      {loadError ? (
+        <Card>
+          <CardContent className="flex items-center justify-center py-16">
+            <div className="text-sm text-destructive">{loadError}</div>
+          </CardContent>
+        </Card>
+      ) : (
+        <LogsTable
+          loading={loading}
+          logs={logs}
+          expandedRows={expandedRows}
+          onToggleRow={toggleRow}
+        />
+      )}
     </section>
   );
 }

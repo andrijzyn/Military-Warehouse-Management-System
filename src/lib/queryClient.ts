@@ -5,6 +5,14 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 async function throwIfResNotOk(res: Response) {
   if (res.ok) return;
 
+  if (res.status === 401) {
+    // The session is gone (expired, invalidated, or never existed).
+    // Clearing the cached identity flips useAuth()'s `user` to null,
+    // which makes the app render the login page immediately instead
+    // of leaving stale pages showing failed requests.
+    queryClient.setQueryData(["/api/auth/me"], null);
+  }
+
   let message = res.statusText || "Request failed";
 
   const contentType = res.headers.get("content-type") || "";
