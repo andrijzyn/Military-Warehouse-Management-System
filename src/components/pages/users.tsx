@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { getErrorMessage } from "@/lib/apiClientError";
 import { useAuth } from "@/hooks/use-auth";
 import type { InsertUser, UpdateUser } from "@/lib/schema";
 import type { SafeUser } from "@/lib/userTypes";
@@ -65,7 +66,12 @@ export default function UsersPage() {
   const [editUser, setEditUser] = useState<SafeUser | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<SafeUser | null>(null);
 
-  const { data: users = [], isLoading } = useQuery<SafeUser[]>({
+  const {
+    data: users = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<SafeUser[]>({
     queryKey: ["/api/users"],
   });
 
@@ -174,6 +180,12 @@ export default function UsersPage() {
               {[...Array(3)].map((_, i) => (
                 <Skeleton key={i} className="h-10 w-full" />
               ))}
+            </div>
+          ) : isError ? (
+            <div className="flex items-center justify-center py-16">
+              <div className="text-sm text-destructive">
+                {getErrorMessage(error, "Failed to load users")}
+              </div>
             </div>
           ) : (
             <Table>

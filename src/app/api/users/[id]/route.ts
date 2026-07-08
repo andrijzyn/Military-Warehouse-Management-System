@@ -46,7 +46,7 @@ export const DELETE = withErrorHandling(
     req: NextRequest,
     { params }: { params: Promise<{ id: string }> },
   ): Promise<NextResponse> => {
-    const userOrResp = await requirePermission(PERMISSIONS.WRITE_USERS);
+    const userOrResp = await requirePermission(PERMISSIONS.DELETE_USERS);
     if (userOrResp instanceof NextResponse) return userOrResp;
     const currentUser = userOrResp;
 
