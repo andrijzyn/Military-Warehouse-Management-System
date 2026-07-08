@@ -23,9 +23,9 @@ export interface Product {
 }
 
 export const insertProductSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  sku: z.string().min(1, "SKU is required"),
-  category: z.string().min(1, "Category is required"),
+  name: z.string().min(1, "validation.nameRequired"),
+  sku: z.string().min(1, "validation.skuRequired"),
+  category: z.string().min(1, "validation.categoryRequired"),
   quantity: z.number().int().min(0).default(0),
   price: z.number().min(0).default(0),
   low_stock_threshold: z.number().int().min(0).default(10),
@@ -50,7 +50,7 @@ export const insertLocationSchema = z.object({
     .number()
     .int()
     .refine((v) => [0, 10, 20, 30, 40, 50, 60].includes(v), {
-      message: "Level must be 0, 10, 20, 30, 40, 50 or 60",
+      message: "validation.levelRange",
     }),
 });
 
@@ -71,9 +71,9 @@ export interface ProductLocationView extends ProductLocation {
 }
 
 export const insertProductLocationSchema = z.object({
-  product_id: z.uuid({ error: "Invalid product ID" }),
-  location_id: z.uuid({ error: "Invalid location ID" }),
-  quantity: z.number().int().min(0, { error: "Quantity must be 0 or more" }),
+  product_id: z.uuid({ error: "validation.invalidProductId" }),
+  location_id: z.uuid({ error: "validation.invalidLocationId" }),
+  quantity: z.number().int().min(0, { error: "validation.quantityMin" }),
 });
 
 export type InsertProductLocation = z.infer<typeof insertProductLocationSchema>;
@@ -114,11 +114,11 @@ export const CLEARANCE_LEVELS = [
 
 // ── Users ─────────────────────────────────────────────
 export const insertUserSchema = z.object({
-  username: z.string().min(3, { error: "Min 3 characters" }).max(50),
-  password: z.string().min(6, { error: "Min 6 characters" }),
-  full_name: z.string().min(1, { error: "Required" }),
-  rank: z.string().min(1, { error: "Required" }),
-  unit: z.string().min(1, { error: "Required" }),
+  username: z.string().min(3, { error: "validation.usernameMin" }).max(50),
+  password: z.string().min(6, { error: "validation.passwordMin" }),
+  full_name: z.string().min(1, { error: "validation.required" }),
+  rank: z.string().min(1, { error: "validation.required" }),
+  unit: z.string().min(1, { error: "validation.required" }),
   callsign: z.string().nullable().optional(),
   clearance_level: z.string().default("No clearance"),
   permissions: z.array(permissionSchema).default([]),
@@ -127,7 +127,7 @@ export const insertUserSchema = z.object({
 
 const optionalPasswordSchema = z.preprocess(
   (value) => (value === "" ? undefined : value),
-  z.string().min(6, { error: "Min 6 characters" }).optional(),
+  z.string().min(6, { error: "validation.passwordMin" }).optional(),
 );
 
 export const updateUserSchema = insertUserSchema
@@ -141,8 +141,8 @@ export type InsertUser = z.infer<typeof insertUserSchema>;
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 
 export const loginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  username: z.string().min(1, "validation.usernameRequired"),
+  password: z.string().min(1, "validation.passwordRequired"),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;

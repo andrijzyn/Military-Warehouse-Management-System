@@ -12,6 +12,7 @@ import {
 import type { Product } from "@/lib/schema";
 import { Badge } from "@/components/ui/badge";
 import { getErrorMessage } from "@/lib/apiClientError";
+import { useLanguage } from "@/lib/i18n";
 
 interface Stats {
   totalProducts: number;
@@ -29,6 +30,8 @@ export default function Dashboard({
     page: "dashboard" | "products" | "users" | "locations",
   ) => void;
 }) {
+  const { t } = useLanguage();
+
   const {
     data: stats,
     isLoading: statsLoading,
@@ -56,7 +59,7 @@ export default function Dashboard({
   const statItems = [
     {
       key: "products",
-      label: "Total Products",
+      label: t("dashboard.totalProducts"),
       value: statsLoading ? "—" : (stats?.totalProducts ?? 0),
       icon: Package,
       iconClass: "text-primary",
@@ -66,7 +69,7 @@ export default function Dashboard({
     },
     {
       key: "value",
-      label: "Total Value",
+      label: t("dashboard.totalValue"),
       value: statsLoading
         ? "—"
         : `$${(stats?.totalValue ?? 0).toLocaleString("en-US", {
@@ -80,7 +83,7 @@ export default function Dashboard({
     },
     {
       key: "low-stock",
-      label: "Low Stock",
+      label: t("dashboard.lowStock"),
       value: statsLoading ? "—" : (stats?.lowStockCount ?? 0),
       icon: AlertTriangle,
       iconClass: "text-amber-600 dark:text-amber-400",
@@ -90,7 +93,7 @@ export default function Dashboard({
     },
     {
       key: "out-of-stock",
-      label: "Out of Stock",
+      label: t("dashboard.outOfStock"),
       value: statsLoading ? "—" : (stats?.outOfStockCount ?? 0),
       icon: XCircle,
       iconClass: "text-red-600 dark:text-red-400",
@@ -100,7 +103,7 @@ export default function Dashboard({
     },
     {
       key: "categories",
-      label: "Categories",
+      label: t("dashboard.categories"),
       value: statsLoading ? "—" : (stats?.categoriesCount ?? 0),
       icon: FolderOpen,
       iconClass: "text-violet-600 dark:text-violet-400",
@@ -117,7 +120,7 @@ export default function Dashboard({
             className="text-xl font-semibold tracking-tight sm:text-2xl"
             data-testid="text-page-title"
           >
-            Dashboard
+            {t("dashboard.title")}
           </h1>
         </div>
         <Card>
@@ -125,7 +128,7 @@ export default function Dashboard({
             <div className="text-sm text-destructive">
               {getErrorMessage(
                 statsErrorObj ?? productsErrorObj,
-                "Failed to load dashboard data",
+                t("dashboard.loadError"),
               )}
             </div>
           </CardContent>
@@ -141,10 +144,10 @@ export default function Dashboard({
           className="text-xl font-semibold tracking-tight sm:text-2xl"
           data-testid="text-page-title"
         >
-          Dashboard
+          {t("dashboard.title")}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Overview of your inventory status
+          {t("dashboard.subtitle")}
         </p>
       </div>
 
@@ -252,14 +255,14 @@ export default function Dashboard({
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base font-medium">
               <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-              Low Stock Alerts
+              {t("dashboard.lowStockAlerts")}
             </CardTitle>
           </CardHeader>
 
           <CardContent>
             {lowStockProducts.length === 0 ? (
               <p className="py-4 text-center text-sm text-muted-foreground">
-                All products are well-stocked
+                {t("dashboard.allWellStocked")}
               </p>
             ) : (
               <div className="space-y-3">
@@ -282,7 +285,7 @@ export default function Dashboard({
                       variant="outline"
                       className="shrink-0 border-amber-300 text-xs text-amber-600 dark:border-amber-700 dark:text-amber-400"
                     >
-                      {product.quantity} left
+                      {t("dashboard.leftSuffix", { qty: product.quantity })}
                     </Badge>
                   </div>
                 ))}
@@ -295,14 +298,14 @@ export default function Dashboard({
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base font-medium">
               <XCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
-              Out of Stock
+              {t("dashboard.outOfStock")}
             </CardTitle>
           </CardHeader>
 
           <CardContent>
             {outOfStockProducts.length === 0 ? (
               <p className="py-4 text-center text-sm text-muted-foreground">
-                No products are out of stock
+                {t("dashboard.noProductsOutOfStock")}
               </p>
             ) : (
               <div className="space-y-3">
@@ -322,7 +325,7 @@ export default function Dashboard({
                     </div>
 
                     <Badge variant="destructive" className="shrink-0 text-xs">
-                      Out of stock
+                      {t("dashboard.outOfStockBadge")}
                     </Badge>
                   </div>
                 ))}

@@ -14,6 +14,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { useLanguage, type TranslationKey } from "@/lib/i18n";
 
 const Form = FormProvider;
 
@@ -148,7 +149,9 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? "") : children;
+  const { t } = useLanguage();
+  const raw = error ? String(error?.message ?? "") : undefined;
+  const body = raw ? t(raw as TranslationKey) : children;
 
   if (!body) {
     return null;

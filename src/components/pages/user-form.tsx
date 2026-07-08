@@ -31,10 +31,16 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Loader2 } from "lucide-react";
+import {
+  useLanguage,
+  translateRank,
+  translateClearance,
+  type TranslationKey,
+} from "@/lib/i18n";
 
-const PERMISSION_GROUPS: { label: string; perms: Permission[] }[] = [
+const PERMISSION_GROUPS: { labelKey: TranslationKey; perms: Permission[] }[] = [
   {
-    label: "Read",
+    labelKey: "userForm.readGroup",
     perms: [
       PERMISSIONS.READ_PRODUCTS,
       PERMISSIONS.READ_LOCATIONS,
@@ -44,7 +50,7 @@ const PERMISSION_GROUPS: { label: string; perms: Permission[] }[] = [
     ],
   },
   {
-    label: "Write",
+    labelKey: "userForm.writeGroup",
     perms: [
       PERMISSIONS.WRITE_PRODUCTS,
       PERMISSIONS.WRITE_LOCATIONS,
@@ -52,7 +58,7 @@ const PERMISSION_GROUPS: { label: string; perms: Permission[] }[] = [
     ],
   },
   {
-    label: "Delete",
+    labelKey: "userForm.deleteGroup",
     perms: [
       PERMISSIONS.DELETE_PRODUCTS,
       PERMISSIONS.DELETE_LOCATIONS,
@@ -61,18 +67,18 @@ const PERMISSION_GROUPS: { label: string; perms: Permission[] }[] = [
   },
 ];
 
-const PERMISSION_LABELS: Record<Permission, string> = {
-  read_products: "Products",
-  read_locations: "Locations",
-  read_users: "Users",
-  read_debug: "Debug",
-  read_logs: "Logs",
-  write_products: "Products",
-  write_locations: "Locations",
-  write_users: "Users",
-  delete_products: "Products",
-  delete_locations: "Locations",
-  delete_users: "Users",
+const PERMISSION_LABEL_KEYS: Record<Permission, TranslationKey> = {
+  read_products: "nav.products",
+  read_locations: "nav.locations",
+  read_users: "nav.users",
+  read_debug: "userForm.debugLabel",
+  read_logs: "permissionDots.logs",
+  write_products: "nav.products",
+  write_locations: "nav.locations",
+  write_users: "nav.users",
+  delete_products: "nav.products",
+  delete_locations: "nav.locations",
+  delete_users: "nav.users",
 };
 
 type UserFormValues = {
@@ -104,6 +110,7 @@ type EditUserFormProps = {
 type UserFormProps = CreateUserFormProps | EditUserFormProps;
 
 export default function UserForm(props: UserFormProps) {
+  const { t } = useLanguage();
   const form = useForm<UserFormValues>({
     resolver: zodResolver(
       props.isEdit ? updateUserSchema : insertUserSchema,
@@ -159,7 +166,7 @@ export default function UserForm(props: UserFormProps) {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{t("fields.username")}</FormLabel>
               <FormControl>
                 <Input {...field} value={field.value ?? ""} />
               </FormControl>
@@ -174,7 +181,9 @@ export default function UserForm(props: UserFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                {props.isEdit ? "New password (optional)" : "Password"}
+                {props.isEdit
+                  ? t("userForm.newPasswordLabel")
+                  : t("fields.password")}
               </FormLabel>
               <FormControl>
                 <Input type="password" {...field} value={field.value ?? ""} />
@@ -189,7 +198,7 @@ export default function UserForm(props: UserFormProps) {
           name="full_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full name</FormLabel>
+              <FormLabel>{t("fields.fullName")}</FormLabel>
               <FormControl>
                 <Input {...field} value={field.value ?? ""} />
               </FormControl>
@@ -203,17 +212,17 @@ export default function UserForm(props: UserFormProps) {
           name="rank"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Rank</FormLabel>
+              <FormLabel>{t("fields.rank")}</FormLabel>
               <Select onValueChange={field.onChange} value={field.value ?? ""}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select rank" />
+                    <SelectValue placeholder={t("userForm.selectRankPlaceholder")} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {MILITARY_RANKS.map((rank) => (
                     <SelectItem key={rank} value={rank}>
-                      {rank}
+                      {translateRank(t, rank)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -228,7 +237,7 @@ export default function UserForm(props: UserFormProps) {
           name="unit"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Unit</FormLabel>
+              <FormLabel>{t("fields.unit")}</FormLabel>
               <FormControl>
                 <Input {...field} value={field.value ?? ""} />
               </FormControl>
@@ -242,7 +251,7 @@ export default function UserForm(props: UserFormProps) {
           name="callsign"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Call sign</FormLabel>
+              <FormLabel>{t("userForm.callsignLabel")}</FormLabel>
               <FormControl>
                 <Input {...field} value={field.value ?? ""} />
               </FormControl>
@@ -256,17 +265,17 @@ export default function UserForm(props: UserFormProps) {
           name="clearance_level"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Clearance level</FormLabel>
+              <FormLabel>{t("userForm.clearanceLevelLabel")}</FormLabel>
               <Select onValueChange={field.onChange} value={field.value ?? ""}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select level" />
+                    <SelectValue placeholder={t("userForm.selectClearancePlaceholder")} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {CLEARANCE_LEVELS.map((level) => (
                     <SelectItem key={level} value={level}>
-                      {level}
+                      {translateClearance(t, level)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -284,12 +293,12 @@ export default function UserForm(props: UserFormProps) {
 
             return (
               <FormItem>
-                <FormLabel>Permissions</FormLabel>
+                <FormLabel>{t("fields.permissions")}</FormLabel>
                 <div className="space-y-3 rounded-md border p-3">
                   {PERMISSION_GROUPS.map((group) => (
-                    <div key={group.label}>
+                    <div key={group.labelKey}>
                       <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                        {group.label}
+                        {t(group.labelKey)}
                       </p>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                         {group.perms.map((perm) => {
@@ -311,7 +320,7 @@ export default function UserForm(props: UserFormProps) {
                                   field.onChange(next);
                                 }}
                               />
-                              {PERMISSION_LABELS[perm]}
+                              {t(PERMISSION_LABEL_KEYS[perm])}
                             </label>
                           );
                         })}
@@ -330,7 +339,7 @@ export default function UserForm(props: UserFormProps) {
           name="is_active"
           render={({ field }) => (
             <FormItem className="flex items-center justify-between rounded-md border p-3">
-              <FormLabel className="mb-0">Active</FormLabel>
+              <FormLabel className="mb-0">{t("common.active")}</FormLabel>
               <FormControl>
                 <Switch
                   checked={field.value}
@@ -345,12 +354,12 @@ export default function UserForm(props: UserFormProps) {
           {props.isPending ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              {props.isEdit ? "Saving..." : "Creating..."}
+              {props.isEdit ? t("common.saving") : t("common.creating")}
             </>
           ) : props.isEdit ? (
-            "Save changes"
+            t("userForm.saveChanges")
           ) : (
-            "Create user"
+            t("userForm.createUser")
           )}
         </Button>
       </form>

@@ -7,8 +7,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { createApiClientErrorFromResponse } from "@/lib/apiClientError";
 import { LogsFilters } from "./logs-filters";
 import { LogsTable, type AuditAction, type AuditLogItem } from "./logs-table";
+import { useLanguage } from "@/lib/i18n";
 
 export default function LogsPage() {
+  const { t } = useLanguage();
   const [logs, setLogs] = useState<AuditLogItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -42,7 +44,7 @@ export default function LogsPage() {
         if (!res.ok) {
           const apiError = await createApiClientErrorFromResponse(
             res,
-            "Failed to fetch audit logs",
+            t("logs.fetchError"),
           );
           setLoadError(apiError.message);
           setLogs([]);
@@ -54,7 +56,7 @@ export default function LogsPage() {
         setLogs(Array.isArray(data) ? data : []);
       } catch (error) {
         setLoadError(
-          error instanceof Error ? error.message : "Failed to fetch audit logs",
+          error instanceof Error ? error.message : t("logs.fetchError"),
         );
         setLogs([]);
       } finally {
@@ -62,7 +64,7 @@ export default function LogsPage() {
         setRefreshing(false);
       }
     },
-    [query, selectedTable, selectedAction],
+    [query, selectedTable, selectedAction, t],
   );
 
   useEffect(() => {
@@ -93,9 +95,9 @@ export default function LogsPage() {
     <section className="space-y-6" data-testid="logs-page">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Audit Logs</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">{t("logs.title")}</h1>
           <p className="text-sm text-muted-foreground">
-            History of changes across system entities and user actions.
+            {t("logs.subtitle")}
           </p>
         </div>
 
@@ -109,7 +111,7 @@ export default function LogsPage() {
           <RefreshCw
             className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
           />
-          Refresh
+          {t("logs.refresh")}
         </Button>
       </div>
 

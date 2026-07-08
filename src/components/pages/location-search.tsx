@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Location } from "@/lib/schema";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n";
 
 interface LocationSearchProps {
   value: string;
@@ -19,6 +20,7 @@ export function LocationSearch({
   excludeIds,
   initialLabel = "",
 }: LocationSearchProps) {
+  const { t } = useLanguage();
   const excluded = excludeIds ?? [];
   const [input, setInput] = useState(initialLabel);
   const [open, setOpen] = useState(false);
@@ -51,7 +53,7 @@ export function LocationSearch({
   return (
     <div className="relative">
       <Input
-        placeholder="Enter label... (R001C007L10)"
+        placeholder={t("locationSearch.placeholder")}
         value={input}
         onChange={(e) => handleInput(e.target.value)}
         onFocus={() => input.length >= 2 && setOpen(true)}
@@ -83,7 +85,7 @@ export function LocationSearch({
       )}
       {open && input.length >= 2 && available.length === 0 && (
         <div className="absolute z-50 w-full mt-1 bg-popover border border-border rounded-md shadow-md px-3 py-4 text-sm text-muted-foreground text-center">
-          No locations found
+          {t("locationSearch.noResults")}
         </div>
       )}
     </div>

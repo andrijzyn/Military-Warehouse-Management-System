@@ -28,21 +28,23 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
+import { useLanguage, type Translate } from "@/lib/i18n";
 
 interface ProductFormProps {
   product?: Product;
   onClose: () => void;
 }
 
-function getProductMutationMessage(error: unknown) {
+function getProductMutationMessage(error: unknown, t: Translate) {
   const status = getErrorStatus(error);
-  if (status === 403) return "You do not have permission to manage products.";
-  if (status === 409) return "A product with this SKU already exists.";
+  if (status === 403) return t("productForm.forbidden");
+  if (status === 409) return t("productForm.skuConflict");
   return getErrorMessage(error);
 }
 
 export default function ProductForm({ product, onClose }: ProductFormProps) {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const isEditing = !!product;
 
   const form = useForm<InsertProduct>({
@@ -72,18 +74,23 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
       queryClient.invalidateQueries({ queryKey: ["/api/categories"] });
 
       toast({
-        title: isEditing ? "Product updated" : "Product created",
+        title: isEditing
+          ? t("productForm.updatedToastTitle")
+          : t("productForm.createdToastTitle"),
         description: isEditing
-          ? "The product has been updated successfully."
-          : "The product has been added to inventory.",
+          ? t("productForm.updatedToastDescription")
+          : t("productForm.createdToastDescription"),
       });
 
       onClose();
     },
     onError: (error: ApiClientError) => {
       toast({
-        title: getErrorStatus(error) === 403 ? "Access denied" : "Error",
-        description: getProductMutationMessage(error),
+        title:
+          getErrorStatus(error) === 403
+            ? t("common.accessDenied")
+            : t("common.error"),
+        description: getProductMutationMessage(error, t),
         variant: "destructive",
       });
     },
@@ -110,12 +117,12 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
             className="text-xl font-semibold tracking-tight"
             data-testid="text-form-title"
           >
-            {isEditing ? "Edit Product" : "Add Product"}
+            {isEditing ? t("productForm.editTitle") : t("products.addProduct")}
           </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
             {isEditing
-              ? "Update the product details below"
-              : "Fill in the product details below"}
+              ? t("productForm.editSubtitle")
+              : t("productForm.addSubtitle")}
           </p>
         </div>
       </div>
@@ -130,10 +137,10 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Product Name</FormLabel>
+                      <FormLabel>{t("productForm.nameLabel")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="e.g. Wireless Mouse"
+                          placeholder={t("productForm.namePlaceholder")}
                           {...field}
                           data-testid="input-name"
                         />
@@ -148,10 +155,10 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   name="sku"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>SKU</FormLabel>
+                      <FormLabel>{t("fields.sku")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="e.g. WM-001"
+                          placeholder={t("productForm.skuPlaceholder")}
                           {...field}
                           data-testid="input-sku"
                         />
@@ -167,10 +174,10 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>{t("fields.category")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="e.g. Electronics"
+                        placeholder={t("productForm.categoryPlaceholder")}
                         {...field}
                         data-testid="input-category"
                       />
@@ -186,7 +193,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   name="quantity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Quantity</FormLabel>
+                      <FormLabel>{t("fields.quantity")}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -209,7 +216,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   name="price"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Price ($)</FormLabel>
+                      <FormLabel>{t("productForm.priceLabel")}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -232,7 +239,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   name="low_stock_threshold"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Low Stock Alert</FormLabel>
+                      <FormLabel>{t("productForm.lowStockLabel")}</FormLabel>
                       <FormControl>
                         <Input
                           type="number"
@@ -256,10 +263,10 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t("productForm.descriptionLabel")}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Optional product description..."
+                        placeholder={t("productForm.descriptionPlaceholder")}
                         rows={3}
                         {...field}
                         value={field.value ?? ""}
@@ -279,11 +286,11 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                 >
                   {mutation.isPending
                     ? isEditing
-                      ? "Updating..."
-                      : "Creating..."
+                      ? t("productForm.updating")
+                      : t("common.creating")
                     : isEditing
-                      ? "Update Product"
-                      : "Create Product"}
+                      ? t("productForm.updateProduct")
+                      : t("productForm.createProduct")}
                 </Button>
 
                 <Button
@@ -292,7 +299,7 @@ export default function ProductForm({ product, onClose }: ProductFormProps) {
                   onClick={onClose}
                   data-testid="button-cancel"
                 >
-                  Cancel
+                  {t("common.cancel")}
                 </Button>
               </div>
             </form>

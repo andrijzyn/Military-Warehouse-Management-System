@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/table";
 import { Search, Pencil, ArrowUpDown } from "lucide-react";
 import LocationForm from "@/components/pages/location-form";
+import { useLanguage } from "@/lib/i18n";
 
 type SortKey = "label" | "sku" | "category";
 type SortDir = "asc" | "desc";
@@ -65,6 +66,7 @@ function getSortValue(product: Product, sortKey: SortKey): string {
 }
 
 export default function LocationsPage() {
+  const { t, language } = useLanguage();
   const [search, setSearch] = useState("");
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [sortKey, setSortKey] = useState<SortKey>("label");
@@ -92,7 +94,7 @@ export default function LocationsPage() {
       const res = await fetch(url, { signal });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch products");
+        throw new Error(t("locations.loadErrorFallback"));
       }
 
       return (await res.json()) as Product[];
@@ -103,11 +105,11 @@ export default function LocationsPage() {
     return [...products].sort((a, b) => {
       const aValue = getSortValue(a, sortKey);
       const bValue = getSortValue(b, sortKey);
-      const cmp = aValue.localeCompare(bValue, "uk", { sensitivity: "base" });
+      const cmp = aValue.localeCompare(bValue, language, { sensitivity: "base" });
 
       return sortDir === "asc" ? cmp : -cmp;
     });
-  }, [products, sortKey, sortDir]);
+  }, [products, sortKey, sortDir, language]);
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) {
@@ -135,10 +137,10 @@ export default function LocationsPage() {
           className="text-xl font-semibold tracking-tight"
           data-testid="text-page-title"
         >
-          Locations
+          {t("locations.title")}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Select a product to manage its warehouse locations
+          {t("locations.subtitle")}
         </p>
       </div>
 
@@ -146,7 +148,7 @@ export default function LocationsPage() {
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search products..."
+          placeholder={t("locations.searchPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="pl-9"
@@ -159,7 +161,7 @@ export default function LocationsPage() {
           {isLoading ? (
             <div className="flex items-center justify-center py-16">
               <div className="text-sm text-muted-foreground">
-                Loading products...
+                {t("common.loadingProducts")}
               </div>
             </div>
           ) : isError ? (
@@ -167,12 +169,14 @@ export default function LocationsPage() {
               <div className="text-sm text-destructive">
                 {error instanceof Error
                   ? error.message
-                  : "Failed to load products"}
+                  : t("locations.loadErrorFallback")}
               </div>
             </div>
           ) : sortedProducts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16">
-              <p className="text-sm text-muted-foreground">No products found</p>
+              <p className="text-sm text-muted-foreground">
+                {t("common.noProductsFound")}
+              </p>
               {search ? (
                 <Button
                   variant="ghost"
@@ -181,7 +185,7 @@ export default function LocationsPage() {
                   onClick={() => setSearch("")}
                   data-testid="button-clear-search"
                 >
-                  Clear search
+                  {t("locations.clearSearch")}
                 </Button>
               ) : null}
             </div>
@@ -192,7 +196,7 @@ export default function LocationsPage() {
                   <TableHead>
                     <SortButton
                       column="label"
-                      label="Product"
+                      label={t("locations.productHeader")}
                       activeKey={sortKey}
                       activeDir={sortDir}
                       onToggle={toggleSort}
@@ -201,7 +205,7 @@ export default function LocationsPage() {
                   <TableHead className="w-[120px]">
                     <SortButton
                       column="sku"
-                      label="SKU"
+                      label={t("fields.sku")}
                       activeKey={sortKey}
                       activeDir={sortDir}
                       onToggle={toggleSort}
@@ -210,14 +214,14 @@ export default function LocationsPage() {
                   <TableHead className="w-[120px]">
                     <SortButton
                       column="category"
-                      label="Category"
+                      label={t("fields.category")}
                       activeKey={sortKey}
                       activeDir={sortDir}
                       onToggle={toggleSort}
                     />
                   </TableHead>
                   <TableHead className="w-[90px] text-right">
-                    Locations
+                    {t("nav.locations")}
                   </TableHead>
                 </TableRow>
               </TableHeader>

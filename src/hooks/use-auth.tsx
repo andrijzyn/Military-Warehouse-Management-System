@@ -6,6 +6,7 @@ import { apiRequest, queryClient, getQueryFn } from "@/lib/queryClient";
 import type { SafeUser } from "@/lib/userTypes";
 import type { LoginInput } from "@/lib/schema";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/lib/i18n";
 
 interface AuthContextType {
   user: SafeUser | null;
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const { data: user, isLoading } = useQuery<SafeUser | null>({
     queryKey: ["/api/auth/me"],
@@ -38,9 +40,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Login Error",
+        title: t("auth.loginErrorTitle"),
         description: error.message.includes("401")
-          ? "Incorrect login or password"
+          ? t("auth.incorrectCredentials")
           : error.message,
       });
     },
@@ -57,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Exit error",
+        title: t("auth.logoutErrorTitle"),
         description: error.message,
       });
     },

@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import type { UseFormReturn } from "react-hook-form";
 import type { InsertProductLocation } from "@/lib/schema";
 import { LocationSearch } from "./location-search";
+import { useLanguage } from "@/lib/i18n";
 
 interface AddLocationDialogProps {
   open: boolean;
@@ -35,11 +36,13 @@ export function AddLocationDialog({
   usedLocationIds,
   isPending,
 }: AddLocationDialogProps) {
+  const { t } = useLanguage();
+
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add location</DialogTitle>
+          <DialogTitle>{t("locationForm.addLocation")}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -49,7 +52,7 @@ export function AddLocationDialog({
               name="location_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Location</FormLabel>
+                  <FormLabel>{t("locationAddDialog.locationLabel")}</FormLabel>
                   <FormControl>
                     <LocationSearch
                       value={field.value}
@@ -67,7 +70,7 @@ export function AddLocationDialog({
               name="quantity"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Quantity</FormLabel>
+                  <FormLabel>{t("fields.quantity")}</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
@@ -88,10 +91,10 @@ export function AddLocationDialog({
                 disabled={isPending}
                 data-testid="button-submit-location"
               >
-                {isPending ? "Adding..." : "Add"}
+                {isPending ? t("common.adding") : t("common.add")}
               </Button>
               <Button type="button" variant="ghost" onClick={onClose}>
-                Cancel
+                {t("common.cancel")}
               </Button>
             </div>
           </form>

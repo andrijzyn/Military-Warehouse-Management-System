@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginInput } from "@/lib/schema";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -20,6 +21,7 @@ import { Shield, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const { t } = useLanguage();
   const [isPending, setIsPending] = useState(false);
 
   const form = useForm<LoginInput>({
@@ -52,7 +54,7 @@ export default function LoginPage() {
               StockPulse
             </h1>
             <p className="text-sm text-muted-foreground mt-1">
-              Warehouse management system
+              {t("login.subtitle")}
             </p>
           </div>
         </div>
@@ -60,7 +62,9 @@ export default function LoginPage() {
         {/* Login Card */}
         <Card className="border-border/50">
           <CardHeader className="pb-4 pt-5 px-5">
-            <p className="text-sm font-medium text-foreground">System login</p>
+            <p className="text-sm font-medium text-foreground">
+              {t("login.cardHeading")}
+            </p>
           </CardHeader>
           <CardContent className="px-5 pb-5">
             <Form {...form}>
@@ -74,11 +78,11 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs font-medium">
-                        Username
+                        {t("fields.username")}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter username"
+                          placeholder={t("login.usernamePlaceholder")}
                           autoComplete="username"
                           data-testid="input-username"
                           {...field}
@@ -95,12 +99,12 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs font-medium">
-                        Password
+                        {t("fields.password")}
                       </FormLabel>
                       <FormControl>
                         <Input
                           type="password"
-                          placeholder="Enter password"
+                          placeholder={t("login.passwordPlaceholder")}
                           autoComplete="current-password"
                           data-testid="input-password"
                           {...field}
@@ -120,10 +124,10 @@ export default function LoginPage() {
                   {isPending ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Signing in…
+                      {t("login.signingIn")}
                     </>
                   ) : (
-                    "Sign in"
+                    t("login.signIn")
                   )}
                 </Button>
               </form>
@@ -132,7 +136,7 @@ export default function LoginPage() {
         </Card>
 
         <p className="text-center text-xs text-muted-foreground">
-          Access is granted by the system administrator
+          {t("login.footerNote")}
         </p>
       </div>
     </div>

@@ -1,0 +1,306 @@
+{
+  "common": {
+    "cancel": "Odustani",
+    "save": "Spremi",
+    "saving": "Spremanje...",
+    "create": "Stvori",
+    "creating": "Stvaranje...",
+    "delete": "Izbriši",
+    "deleting": "Brisanje...",
+    "remove": "Ukloni",
+    "removing": "Uklanjanje...",
+    "add": "Dodaj",
+    "adding": "Dodavanje...",
+    "loading": "Učitavanje...",
+    "loadingProducts": "Učitavanje proizvoda...",
+    "noProductsFound": "Proizvodi nisu pronađeni",
+    "active": "Aktivan",
+    "inactive": "Neaktivan",
+    "error": "Greška",
+    "accessDenied": "Pristup odbijen",
+    "actionsHeader": "Radnje"
+  },
+  "fields": {
+    "fullName": "Ime i prezime",
+    "username": "Korisničko ime",
+    "password": "Lozinka",
+    "rank": "Čin",
+    "unit": "Jedinica",
+    "sku": "Šifra",
+    "category": "Kategorija",
+    "quantity": "Količina",
+    "permissions": "Dozvole",
+    "status": "Status"
+  },
+  "nav": {
+    "dashboard": "Nadzorna ploča",
+    "products": "Proizvodi",
+    "locations": "Lokacije",
+    "users": "Korisnici",
+    "auditLogs": "Zapisnik revizije"
+  },
+  "appShell": {
+    "logoAlt": "StockPulse logotip",
+    "openNavMenu": "Otvori izbornik navigacije",
+    "navMenuTitle": "Izbornik navigacije",
+    "lightTheme": "Svijetla tema",
+    "darkTheme": "Tamna tema",
+    "logout": "Odjava",
+    "defaultUserBadge": "Korisnik"
+  },
+  "auth": {
+    "loginErrorTitle": "Greška prijave",
+    "incorrectCredentials": "Neispravno korisničko ime ili lozinka",
+    "logoutErrorTitle": "Greška odjave"
+  },
+  "login": {
+    "subtitle": "Sustav za upravljanje skladištem",
+    "cardHeading": "Prijava u sustav",
+    "usernamePlaceholder": "Unesite korisničko ime",
+    "passwordPlaceholder": "Unesite lozinku",
+    "signingIn": "Prijava…",
+    "signIn": "Prijavi se",
+    "footerNote": "Pristup odobrava administrator sustava"
+  },
+  "dashboard": {
+    "title": "Nadzorna ploča",
+    "subtitle": "Pregled stanja vašeg skladišta",
+    "loadError": "Učitavanje podataka nadzorne ploče nije uspjelo",
+    "totalProducts": "Ukupno proizvoda",
+    "totalValue": "Ukupna vrijednost",
+    "lowStock": "Niska zaliha",
+    "outOfStock": "Nema na zalihi",
+    "categories": "Kategorije",
+    "lowStockAlerts": "Upozorenja o niskoj zalihi",
+    "allWellStocked": "Svi proizvodi su dobro zalihe",
+    "noProductsOutOfStock": "Nema proizvoda kojih nema na zalihi",
+    "outOfStockBadge": "Nema na zalihi",
+    "leftSuffix": "preostalo: {{qty}}"
+  },
+  "permissionDots": {
+    "logs": "Zapisnik",
+    "noAccess": "Bez pristupa",
+    "canView": "Pregled",
+    "canEdit": "Uređivanje",
+    "hintPrefix": "Redoslijed točaka: {{list}}",
+    "hintAriaLabel": "Objasni redoslijed točaka dozvola"
+  },
+  "logs": {
+    "title": "Zapisnik revizije",
+    "subtitle": "Povijest promjena sustavskih entiteta i radnji korisnika.",
+    "refresh": "Osvježi",
+    "fetchError": "Učitavanje zapisnika revizije nije uspjelo"
+  },
+  "logsFilters": {
+    "searchPlaceholder": "Pretraži tablicu, ID zapisa, ID korelacije...",
+    "allTables": "Sve tablice",
+    "allActions": "Sve radnje",
+    "apply": "Primijeni",
+    "reset": "Poništi"
+  },
+  "logsTable": {
+    "loading": "Učitavanje zapisnika revizije...",
+    "empty": "Zapisnici revizije nisu pronađeni.",
+    "entityHeader": "Entitet",
+    "actionHeader": "Radnja",
+    "actorHeader": "Izvršitelj",
+    "correlationIdHeader": "ID korelacije",
+    "createdAtHeader": "Stvoreno",
+    "noRecordId": "Nema ID-a zapisa",
+    "system": "Sustav",
+    "collapseDetails": "Sažmi detalje zapisa",
+    "expandDetails": "Proširi detalje zapisa",
+    "oldValues": "Prijašnje vrijednosti",
+    "noPreviousValues": "Nema prijašnjih vrijednosti",
+    "changes": "Promjene",
+    "newValues": "Nove vrijednosti",
+    "noNewValues": "Nema novih vrijednosti",
+    "noChanges": "Nema promjena",
+    "noData": "Nema podataka",
+    "old": "Prije",
+    "new": "Poslije"
+  },
+  "products": {
+    "title": "Proizvodi",
+    "itemsCount": {
+      "one": "{{count}} proizvod na skladištu",
+      "few": "{{count}} proizvoda na skladištu",
+      "other": "{{count}} proizvoda na skladištu"
+    },
+    "addProduct": "Dodaj proizvod",
+    "deletedToastTitle": "Proizvod izbrisan",
+    "deletedToastDescription": "Proizvod je uklonjen iz zalihe.",
+    "deleteForbidden": "Nemate dozvolu za brisanje proizvoda.",
+    "deleteFailed": "Brisanje proizvoda nije uspjelo."
+  },
+  "productsFilters": {
+    "searchPlaceholder": "Pretraži po nazivu, šifri ili opisu...",
+    "allCategories": "Sve kategorije"
+  },
+  "productsTable": {
+    "loading": "Učitavanje proizvoda...",
+    "forbidden": "Nemate dozvolu za pregled proizvoda.",
+    "loadError": "Učitavanje proizvoda nije uspjelo.",
+    "empty": "Proizvodi nisu pronađeni",
+    "clearFilters": "Očisti filtre",
+    "nameHeader": "Naziv",
+    "qtyHeader": "Kol.",
+    "priceHeader": "Cijena",
+    "outOfStock": "Nema na zalihi",
+    "lowStock": "Niska zaliha",
+    "inStock": "Na zalihi"
+  },
+  "productsDeleteDialog": {
+    "title": "Izbriši proizvod",
+    "confirmMessage": "Jeste li sigurni da želite izbrisati \"{{name}}\"? Ova se radnja ne može poništiti."
+  },
+  "productForm": {
+    "editTitle": "Uredi proizvod",
+    "editSubtitle": "Ažurirajte podatke o proizvodu ispod",
+    "addSubtitle": "Ispunite podatke o proizvodu ispod",
+    "nameLabel": "Naziv proizvoda",
+    "namePlaceholder": "npr. Bežični miš",
+    "skuPlaceholder": "npr. WM-001",
+    "categoryPlaceholder": "npr. Elektronika",
+    "priceLabel": "Cijena ($)",
+    "lowStockLabel": "Upozorenje o niskoj zalihi",
+    "descriptionLabel": "Opis",
+    "descriptionPlaceholder": "Neobavezan opis proizvoda...",
+    "updating": "Ažuriranje...",
+    "updateProduct": "Ažuriraj proizvod",
+    "createProduct": "Stvori proizvod",
+    "updatedToastTitle": "Proizvod ažuriran",
+    "createdToastTitle": "Proizvod stvoren",
+    "updatedToastDescription": "Proizvod je uspješno ažuriran.",
+    "createdToastDescription": "Proizvod je dodan na zalihu.",
+    "forbidden": "Nemate dozvolu za upravljanje proizvodima.",
+    "skuConflict": "Proizvod s ovom šifrom već postoji."
+  },
+  "users": {
+    "title": "Korisnici",
+    "subtitle": "Upravljanje računima i razinama dopuštenja",
+    "totalLabel": "Ukupno",
+    "activeLabel": "Aktivni",
+    "loadError": "Učitavanje korisnika nije uspjelo",
+    "fullNameHeader": "Ime i prezime",
+    "callsignHeader": "Pozivni znak",
+    "clearanceHeader": "Dopuštenje",
+    "newUserDialogTitle": "Novi korisnik",
+    "newUserDialogDescription": "Stvori novi korisnički račun",
+    "editDialogTitle": "Uređivanje: {{name}}",
+    "editDialogDescription": "Ažuriraj podatke korisničkog računa",
+    "createdToast": "Korisnik stvoren",
+    "savedToast": "Promjene spremljene",
+    "deletedToast": "Korisnik izbrisan",
+    "deleteDialogTitle": "Izbrisati korisnika?",
+    "deleteDialogDescription": "Jeste li sigurni da želite izbrisati {{name}} (@{{username}})? Ova se radnja ne može poništiti."
+  },
+  "userForm": {
+    "newPasswordLabel": "Nova lozinka (neobavezno)",
+    "callsignLabel": "Pozivni znak",
+    "clearanceLevelLabel": "Razina dopuštenja",
+    "selectRankPlaceholder": "Odaberite čin",
+    "selectClearancePlaceholder": "Odaberite razinu",
+    "readGroup": "Pregled",
+    "writeGroup": "Uređivanje",
+    "deleteGroup": "Brisanje",
+    "debugLabel": "Dijagnostika",
+    "saveChanges": "Spremi promjene",
+    "createUser": "Stvori korisnika"
+  },
+  "locations": {
+    "title": "Lokacije",
+    "subtitle": "Odaberite proizvod za upravljanje njegovim skladišnim lokacijama",
+    "searchPlaceholder": "Pretraži proizvode...",
+    "loadErrorFallback": "Učitavanje proizvoda nije uspjelo",
+    "clearSearch": "Očisti pretragu",
+    "productHeader": "Proizvod"
+  },
+  "locationForm": {
+    "forbidden": "Nemate dozvolu za upravljanje lokacijama.",
+    "alreadyLinked": "Ova lokacija je već povezana s proizvodom.",
+    "backTitle": "Lokacije: {{name}}",
+    "metaLine": "Šifra: {{sku}} · Ukupna količina: {{quantity}}",
+    "noLinkedLocations": "Nema povezanih lokacija",
+    "linkedLocationsCount": {
+      "one": "{{count}} lokacija",
+      "few": "{{count}} lokacije",
+      "other": "{{count}} lokacija"
+    },
+    "addLocation": "Dodaj lokaciju",
+    "locationAddedToast": "Lokacija dodana",
+    "quantityUpdatedToast": "Količina ažurirana",
+    "locationRemovedToast": "Lokacija uklonjena"
+  },
+  "locationSearch": {
+    "placeholder": "Unesite oznaku... (R001C007L10)",
+    "noResults": "Lokacije nisu pronađene"
+  },
+  "locationEntriesTable": {
+    "empty": "Ovaj proizvod još nema povezanih lokacija",
+    "locationHeader": "Lokacija",
+    "quantityHeader": "Količina"
+  },
+  "locationAddDialog": {
+    "locationLabel": "Lokacija"
+  },
+  "locationDeleteDialog": {
+    "title": "Ukloniti lokaciju?",
+    "confirmMessagePart1": "Veza između ovog proizvoda i lokacije {{label}} bit će uklonjena.",
+    "unitsReturn": {
+      "one": "{{count}} jedinica će se vratiti u nerazvrstano stanje.",
+      "few": "{{count}} jedinice će se vratiti u nerazvrstano stanje.",
+      "other": "{{count}} jedinica će se vratiti u nerazvrstano stanje."
+    }
+  },
+  "locationAllocationBanner": {
+    "allocatedLabel": "Raspoređeno:",
+    "balanced": "Uravnoteženo",
+    "unallocated": "Neraspoređeno: +{{delta}}",
+    "exceeded": "Premašeno: {{delta}}"
+  },
+  "validation": {
+    "nameRequired": "Naziv je obavezan",
+    "skuRequired": "Šifra je obavezna",
+    "categoryRequired": "Kategorija je obavezna",
+    "levelRange": "Razina mora biti 0, 10, 20, 30, 40, 50 ili 60",
+    "invalidProductId": "Nevažeći ID proizvoda",
+    "invalidLocationId": "Nevažeći ID lokacije",
+    "quantityMin": "Količina mora biti 0 ili više",
+    "usernameMin": "Minimalno 3 znaka",
+    "passwordMin": "Minimalno 6 znakova",
+    "required": "Obavezno polje",
+    "usernameRequired": "Korisničko ime je obavezno",
+    "passwordRequired": "Lozinka je obavezna"
+  },
+  "ranks": {
+    "private": "Vojnik",
+    "seniorPrivate": "Razvodnik",
+    "juniorSergeant": "Mlađi vodnik",
+    "sergeant": "Vodnik",
+    "seniorSergeant": "Vodnik 1. klase",
+    "chiefSergeant": "Stožerni vodnik",
+    "staffSergeant": "Stožerni narednik",
+    "masterSergeant": "Narednik",
+    "seniorMasterSergeant": "Stariji narednik",
+    "chiefMasterSergeant": "Časnički namjesnik",
+    "juniorLieutenant": "Mlađi poručnik",
+    "lieutenant": "Poručnik",
+    "seniorLieutenant": "Nadporučnik",
+    "captain": "Satnik",
+    "major": "Bojnik",
+    "lieutenantColonel": "Podpukovnik",
+    "colonel": "Pukovnik",
+    "brigadierGeneral": "Brigadni general",
+    "majorGeneral": "General-bojnik",
+    "lieutenantGeneral": "General-pukovnik",
+    "general": "General"
+  },
+  "clearanceLevels": {
+    "none": "Bez dopusnice",
+    "officialUseOnly": "Samo za službenu uporabu",
+    "secret": "Povjerljivo",
+    "topSecret": "Strogo povjerljivo",
+    "specialImportance": "Od posebne važnosti"
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "create": "Create",
+    "creating": "Creating...",
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "remove": "Remove",
+    "removing": "Removing...",
+    "add": "Add",
+    "adding": "Adding...",
+    "loading": "Loading...",
+    "loadingProducts": "Loading products...",
+    "noProductsFound": "No products found",
+    "active": "Active",
+    "inactive": "Inactive",
+    "error": "Error",
+    "accessDenied": "Access denied",
+    "actionsHeader": "Actions"
+  },
+  "fields": {
+    "fullName": "Full name",
+    "username": "Username",
+    "password": "Password",
+    "rank": "Rank",
+    "unit": "Unit",
+    "sku": "SKU",
+    "category": "Category",
+    "quantity": "Quantity",
+    "permissions": "Permissions",
+    "status": "Status"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "locations": "Locations",
+    "users": "Users",
+    "auditLogs": "Audit Logs"
+  },
+  "appShell": {
+    "logoAlt": "StockPulse logo",
+    "openNavMenu": "Open navigation menu",
+    "navMenuTitle": "Navigation menu",
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme",
+    "logout": "Logout",
+    "defaultUserBadge": "User"
+  },
+  "auth": {
+    "loginErrorTitle": "Login Error",
+    "incorrectCredentials": "Incorrect login or password",
+    "logoutErrorTitle": "Exit error"
+  },
+  "login": {
+    "subtitle": "Warehouse management system",
+    "cardHeading": "System login",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password",
+    "signingIn": "Signing in…",
+    "signIn": "Sign in",
+    "footerNote": "Access is granted by the system administrator"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your inventory status",
+    "loadError": "Failed to load dashboard data",
+    "totalProducts": "Total Products",
+    "totalValue": "Total Value",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "categories": "Categories",
+    "lowStockAlerts": "Low Stock Alerts",
+    "allWellStocked": "All products are well-stocked",
+    "noProductsOutOfStock": "No products are out of stock",
+    "outOfStockBadge": "Out of stock",
+    "leftSuffix": "{{qty}} left"
+  },
+  "permissionDots": {
+    "logs": "Logs",
+    "noAccess": "No access",
+    "canView": "Can view",
+    "canEdit": "Can edit",
+    "hintPrefix": "Dot order: {{list}}",
+    "hintAriaLabel": "Explain permission dot order"
+  },
+  "logs": {
+    "title": "Audit Logs",
+    "subtitle": "History of changes across system entities and user actions.",
+    "refresh": "Refresh",
+    "fetchError": "Failed to fetch audit logs"
+  },
+  "logsFilters": {
+    "searchPlaceholder": "Search table, record ID, correlation ID...",
+    "allTables": "All tables",
+    "allActions": "All actions",
+    "apply": "Apply",
+    "reset": "Reset"
+  },
+  "logsTable": {
+    "loading": "Loading audit logs...",
+    "empty": "No audit logs found.",
+    "entityHeader": "Entity",
+    "actionHeader": "Action",
+    "actorHeader": "Actor",
+    "correlationIdHeader": "Correlation ID",
+    "createdAtHeader": "Created At",
+    "noRecordId": "No record ID",
+    "system": "System",
+    "collapseDetails": "Collapse log details",
+    "expandDetails": "Expand log details",
+    "oldValues": "Old values",
+    "noPreviousValues": "No previous values",
+    "changes": "Changes",
+    "newValues": "New values",
+    "noNewValues": "No new values",
+    "noChanges": "No changes",
+    "noData": "No data",
+    "old": "Old",
+    "new": "New"
+  },
+  "products": {
+    "title": "Products",
+    "itemsCount": {
+      "one": "{{count}} item in inventory",
+      "other": "{{count}} items in inventory"
+    },
+    "addProduct": "Add Product",
+    "deletedToastTitle": "Product deleted",
+    "deletedToastDescription": "The product has been removed from inventory.",
+    "deleteForbidden": "You do not have permission to delete products.",
+    "deleteFailed": "Failed to delete the product."
+  },
+  "productsFilters": {
+    "searchPlaceholder": "Search by name, SKU, or description...",
+    "allCategories": "All Categories"
+  },
+  "productsTable": {
+    "loading": "Loading products...",
+    "forbidden": "You do not have permission to view products.",
+    "loadError": "Failed to fetch products.",
+    "empty": "No products found",
+    "clearFilters": "Clear filters",
+    "nameHeader": "Name",
+    "qtyHeader": "Qty",
+    "priceHeader": "Price",
+    "outOfStock": "Out of stock",
+    "lowStock": "Low stock",
+    "inStock": "In stock"
+  },
+  "productsDeleteDialog": {
+    "title": "Delete Product",
+    "confirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone."
+  },
+  "productForm": {
+    "editTitle": "Edit Product",
+    "editSubtitle": "Update the product details below",
+    "addSubtitle": "Fill in the product details below",
+    "nameLabel": "Product Name",
+    "namePlaceholder": "e.g. Wireless Mouse",
+    "skuPlaceholder": "e.g. WM-001",
+    "categoryPlaceholder": "e.g. Electronics",
+    "priceLabel": "Price ($)",
+    "lowStockLabel": "Low Stock Alert",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Optional product description...",
+    "updating": "Updating...",
+    "updateProduct": "Update Product",
+    "createProduct": "Create Product",
+    "updatedToastTitle": "Product updated",
+    "createdToastTitle": "Product created",
+    "updatedToastDescription": "The product has been updated successfully.",
+    "createdToastDescription": "The product has been added to inventory.",
+    "forbidden": "You do not have permission to manage products.",
+    "skuConflict": "A product with this SKU already exists."
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Manage accounts and clearances",
+    "totalLabel": "Total",
+    "activeLabel": "Active",
+    "loadError": "Failed to load users",
+    "fullNameHeader": "Full name",
+    "callsignHeader": "Callsign",
+    "clearanceHeader": "Clearance",
+    "newUserDialogTitle": "New user",
+    "newUserDialogDescription": "Create a new user account",
+    "editDialogTitle": "Edit: {{name}}",
+    "editDialogDescription": "Update user account details",
+    "createdToast": "User created",
+    "savedToast": "Changes saved",
+    "deletedToast": "User deleted",
+    "deleteDialogTitle": "Delete user?",
+    "deleteDialogDescription": "Are you sure you want to delete {{name}} (@{{username}})? This action cannot be undone."
+  },
+  "userForm": {
+    "newPasswordLabel": "New password (optional)",
+    "callsignLabel": "Call sign",
+    "clearanceLevelLabel": "Clearance level",
+    "selectRankPlaceholder": "Select rank",
+    "selectClearancePlaceholder": "Select level",
+    "readGroup": "Read",
+    "writeGroup": "Write",
+    "deleteGroup": "Delete",
+    "debugLabel": "Debug",
+    "saveChanges": "Save changes",
+    "createUser": "Create user"
+  },
+  "locations": {
+    "title": "Locations",
+    "subtitle": "Select a product to manage its warehouse locations",
+    "searchPlaceholder": "Search products...",
+    "loadErrorFallback": "Failed to load products",
+    "clearSearch": "Clear search",
+    "productHeader": "Product"
+  },
+  "locationForm": {
+    "forbidden": "You do not have permission to manage locations.",
+    "alreadyLinked": "This location is already linked to the product.",
+    "backTitle": "Locations: {{name}}",
+    "metaLine": "SKU: {{sku}} · Total quantity: {{quantity}}",
+    "noLinkedLocations": "No linked locations",
+    "linkedLocationsCount": {
+      "one": "{{count}} location",
+      "other": "{{count}} locations"
+    },
+    "addLocation": "Add location",
+    "locationAddedToast": "Location added",
+    "quantityUpdatedToast": "Quantity updated",
+    "locationRemovedToast": "Location removed"
+  },
+  "locationSearch": {
+    "placeholder": "Enter label... (R001C007L10)",
+    "noResults": "No locations found"
+  },
+  "locationEntriesTable": {
+    "empty": "This product has no linked locations yet",
+    "locationHeader": "Location",
+    "quantityHeader": "Quantity"
+  },
+  "locationAddDialog": {
+    "locationLabel": "Location"
+  },
+  "locationDeleteDialog": {
+    "title": "Remove location?",
+    "confirmMessagePart1": "The link between this product and location {{label}} will be removed.",
+    "unitsReturn": {
+      "one": "{{count}} unit will return to the unallocated balance.",
+      "other": "{{count}} units will return to the unallocated balance."
+    }
+  },
+  "locationAllocationBanner": {
+    "allocatedLabel": "Allocated:",
+    "balanced": "Balanced",
+    "unallocated": "Unallocated: +{{delta}}",
+    "exceeded": "Exceeded: {{delta}}"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "skuRequired": "SKU is required",
+    "categoryRequired": "Category is required",
+    "levelRange": "Level must be 0, 10, 20, 30, 40, 50 or 60",
+    "invalidProductId": "Invalid product ID",
+    "invalidLocationId": "Invalid location ID",
+    "quantityMin": "Quantity must be 0 or more",
+    "usernameMin": "Min 3 characters",
+    "passwordMin": "Min 6 characters",
+    "required": "Required",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required"
+  },
+  "ranks": {
+    "private": "Private",
+    "seniorPrivate": "Senior Private",
+    "juniorSergeant": "Junior Sergeant",
+    "sergeant": "Sergeant",
+    "seniorSergeant": "Senior Sergeant",
+    "chiefSergeant": "Chief Sergeant",
+    "staffSergeant": "Staff Sergeant",
+    "masterSergeant": "Master Sergeant",
+    "seniorMasterSergeant": "Senior Master Sergeant",
+    "chiefMasterSergeant": "Chief Master Sergeant",
+    "juniorLieutenant": "Junior Lieutenant",
+    "lieutenant": "Lieutenant",
+    "seniorLieutenant": "Senior Lieutenant",
+    "captain": "Captain",
+    "major": "Major",
+    "lieutenantColonel": "Lieutenant Colonel",
+    "colonel": "Colonel",
+    "brigadierGeneral": "Brigadier General",
+    "majorGeneral": "Major General",
+    "lieutenantGeneral": "Lieutenant General",
+    "general": "General"
+  },
+  "clearanceLevels": {
+    "none": "No clearance",
+    "officialUseOnly": "For official use only",
+    "secret": "Secret",
+    "topSecret": "Top secret",
+    "specialImportance": "Special importance"
+  }
+}

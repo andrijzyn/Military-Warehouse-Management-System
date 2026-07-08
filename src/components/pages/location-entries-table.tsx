@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Pencil, Trash2 } from "lucide-react";
 import type { ProductLocationView } from "@/lib/schema";
+import { useLanguage } from "@/lib/i18n";
 
 interface LocationsTableProps {
   entries: ProductLocationView[];
@@ -31,24 +32,26 @@ export function LocationsTable({
   onDelete,
   onSubmitQuantity,
 }: LocationsTableProps) {
+  const { t } = useLanguage();
+
   return (
     <Card>
       <CardContent className="p-0">
         {isLoading ? (
           <div className="py-12 text-center text-sm text-muted-foreground">
-            Loading...
+            {t("common.loading")}
           </div>
         ) : entries.length === 0 ? (
           <div className="py-12 text-center text-sm text-muted-foreground">
-            This product has no linked locations yet
+            {t("locationEntriesTable.empty")}
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Location</TableHead>
-                <TableHead className="text-right">Quantity</TableHead>
-                <TableHead className="w-[90px] text-right">Actions</TableHead>
+                <TableHead>{t("locationEntriesTable.locationHeader")}</TableHead>
+                <TableHead className="text-right">{t("locationEntriesTable.quantityHeader")}</TableHead>
+                <TableHead className="w-[90px] text-right">{t("common.actionsHeader")}</TableHead>
               </TableRow>
             </TableHeader>
 

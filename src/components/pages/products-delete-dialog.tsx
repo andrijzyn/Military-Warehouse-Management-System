@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import type { Product } from "@/lib/schema";
+import { useLanguage } from "@/lib/i18n";
 
 interface DeleteProductDialogProps {
   product: Product | null;
@@ -23,27 +24,30 @@ export function DeleteProductDialog({
   onConfirm,
   isPending,
 }: DeleteProductDialogProps) {
+  const { t } = useLanguage();
+
   return (
     <AlertDialog open={Boolean(product)} onOpenChange={() => onClose()}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Product</AlertDialogTitle>
+          <AlertDialogTitle>{t("productsDeleteDialog.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete &quot;{product?.name}&quot;? This
-            action cannot be undone.
+            {t("productsDeleteDialog.confirmMessage", {
+              name: product?.name ?? "",
+            })}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
           <AlertDialogCancel data-testid="button-cancel-delete">
-            Cancel
+            {t("common.cancel")}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             data-testid="button-confirm-delete"
           >
-            {isPending ? "Deleting..." : "Delete"}
+            {isPending ? t("common.deleting") : t("common.delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
