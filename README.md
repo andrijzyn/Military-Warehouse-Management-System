@@ -1,5 +1,7 @@
 # StockPulse — Military Inventory Management System 
 
+<img width="1870" height="1025" alt="image" src="https://github.com/user-attachments/assets/15329784-8fab-4f1b-9221-1c31c0337969" />
+
 A logistics and inventory management system for military warehouses. Built with **Next.js 16** (App Router), **Supabase** (PostgreSQL), and deployed on **Netlify**.
 
 > (RN only for one division as the basis of the system)
