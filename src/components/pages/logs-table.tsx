@@ -6,6 +6,7 @@ import {
   PermissionDotsHint,
 } from "@/components/pages/permission-dots";
 import { PERMISSIONS, type Permission } from "@/lib/permissions";
+import { useLanguage } from "@/lib/i18n";
 
 const PERMISSION_VALUES = new Set<string>(Object.values(PERMISSIONS));
 
@@ -51,13 +52,19 @@ function formatAuditValue(value: unknown): string {
 
 function AuditObjectView({
   value,
-  emptyLabel = "No data",
+  emptyLabel,
 }: {
   value: Record<string, unknown> | null | undefined;
   emptyLabel?: string;
 }) {
+  const { t } = useLanguage();
+
   if (!value || Object.keys(value).length === 0) {
-    return <span className="text-muted-foreground">{emptyLabel}</span>;
+    return (
+      <span className="text-muted-foreground">
+        {emptyLabel ?? t("logsTable.noData")}
+      </span>
+    );
   }
 
   return (
@@ -86,13 +93,16 @@ function AuditNewValues({
 }: {
   newValues: Record<string, unknown> | null;
 }) {
+  const { t } = useLanguage();
   const diff = newValues?.diff;
 
   if (diff && typeof diff === "object" && !Array.isArray(diff)) {
     const entries = Object.entries(diff as Record<string, unknown>);
 
     if (entries.length === 0) {
-      return <span className="text-muted-foreground">No changes</span>;
+      return (
+        <span className="text-muted-foreground">{t("logsTable.noChanges")}</span>
+      );
     }
 
     return (
@@ -111,7 +121,7 @@ function AuditNewValues({
                 {isPermissionsField && <PermissionDotsHint />}
               </div>
               <div className="mt-1 grid grid-cols-[80px_minmax(0,1fr)] items-center gap-x-2 gap-y-1.5">
-                <span className="text-muted-foreground">Old</span>
+                <span className="text-muted-foreground">{t("logsTable.old")}</span>
                 {isPermissionsField ? (
                   <PermissionDots permissions={typedChange.old as Permission[]} />
                 ) : (
@@ -119,7 +129,7 @@ function AuditNewValues({
                     {JSON.stringify(typedChange.old)}
                   </code>
                 )}
-                <span className="text-muted-foreground">New</span>
+                <span className="text-muted-foreground">{t("logsTable.new")}</span>
                 {isPermissionsField ? (
                   <PermissionDots permissions={typedChange.new as Permission[]} />
                 ) : (
@@ -135,7 +145,9 @@ function AuditNewValues({
     );
   }
 
-  return <AuditObjectView value={newValues} emptyLabel="No new values" />;
+  return (
+    <AuditObjectView value={newValues} emptyLabel={t("logsTable.noNewValues")} />
+  );
 }
 
 interface LogsTableProps {
@@ -151,12 +163,14 @@ export function LogsTable({
   expandedRows,
   onToggleRow,
 }: LogsTableProps) {
+  const { t, language } = useLanguage();
+
   if (loading) {
     return (
       <div className="rounded-lg border bg-card overflow-hidden">
         <div className="flex items-center justify-center gap-2 py-16 text-sm text-muted-foreground">
           <Loader2 className="h-4 w-4 animate-spin" />
-          Loading audit logs...
+          {t("logsTable.loading")}
         </div>
       </div>
     );
@@ -166,7 +180,7 @@ export function LogsTable({
     return (
       <div className="rounded-lg border bg-card overflow-hidden">
         <div className="py-16 text-center text-sm text-muted-foreground">
-          No audit logs found.
+          {t("logsTable.empty")}
         </div>
       </div>
     );
@@ -179,11 +193,11 @@ export function LogsTable({
           <thead className="bg-muted/40 border-b">
             <tr className="text-left">
               <th className="w-[44px] px-4 py-3"></th>
-              <th className="px-4 py-3 font-medium">Entity</th>
-              <th className="px-4 py-3 font-medium">Action</th>
-              <th className="px-4 py-3 font-medium">Actor</th>
-              <th className="px-4 py-3 font-medium">Correlation ID</th>
-              <th className="px-4 py-3 font-medium">Created At</th>
+              <th className="px-4 py-3 font-medium">{t("logsTable.entityHeader")}</th>
+              <th className="px-4 py-3 font-medium">{t("logsTable.actionHeader")}</th>
+              <th className="px-4 py-3 font-medium">{t("logsTable.actorHeader")}</th>
+              <th className="px-4 py-3 font-medium">{t("logsTable.correlationIdHeader")}</th>
+              <th className="px-4 py-3 font-medium">{t("logsTable.createdAtHeader")}</th>
             </tr>
           </thead>
           <tbody>
@@ -198,7 +212,9 @@ export function LogsTable({
                         onClick={() => onToggleRow(log.id)}
                         className="inline-flex h-7 w-7 items-center justify-center rounded-md border hover:bg-muted"
                         aria-label={
-                          expanded ? "Collapse log details" : "Expand log details"
+                          expanded
+                            ? t("logsTable.collapseDetails")
+                            : t("logsTable.expandDetails")
                         }
                       >
                         {expanded ? (
@@ -212,7 +228,7 @@ export function LogsTable({
                     <td className="px-4 py-3">
                       <div className="font-medium">{log.table_name}</div>
                       <div className="break-all text-xs text-muted-foreground">
-                        {log.record_id ?? "No record ID"}
+                        {log.record_id ?? t("logsTable.noRecordId")}
                       </div>
                     </td>
 
@@ -228,7 +244,7 @@ export function LogsTable({
 
                     <td className="px-4 py-3">
                       <div>
-                        {log.actorUsername ?? log.actorFullName ?? "System"}
+                        {log.actorUsername ?? log.actorFullName ?? t("logsTable.system")}
                       </div>
                       {log.actor_user_id && (
                         <div className="break-all text-xs text-muted-foreground">
@@ -242,7 +258,7 @@ export function LogsTable({
                     </td>
 
                     <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
-                      {new Date(log.created_at).toLocaleString()}
+                      {new Date(log.created_at).toLocaleString(language)}
                     </td>
                   </tr>
 
@@ -251,11 +267,11 @@ export function LogsTable({
                       <td colSpan={6} className="px-4 py-4">
                         <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                           <section className="space-y-2">
-                            <h3 className="text-sm font-medium">Old values</h3>
+                            <h3 className="text-sm font-medium">{t("logsTable.oldValues")}</h3>
                             <div className="rounded-md border bg-background p-3">
                               <AuditObjectView
                                 value={log.old_values}
-                                emptyLabel="No previous values"
+                                emptyLabel={t("logsTable.noPreviousValues")}
                               />
                             </div>
                           </section>
@@ -264,8 +280,8 @@ export function LogsTable({
                             <h3 className="text-sm font-medium">
                               {log.action === "UPDATE" ||
                               log.action === "REPLACE_PERMISSIONS"
-                                ? "Changes"
-                                : "New values"}
+                                ? t("logsTable.changes")
+                                : t("logsTable.newValues")}
                             </h3>
                             <div className="rounded-md border bg-background p-3">
                               <AuditNewValues newValues={log.new_values} />

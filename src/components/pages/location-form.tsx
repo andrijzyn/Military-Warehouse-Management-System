@@ -18,16 +18,17 @@ import { AllocationBanner } from "./location-allocation-banner";
 import { LocationsTable } from "./location-entries-table";
 import { AddLocationDialog } from "./location-add-dialog";
 import { DeleteLocationDialog } from "./location-delete-dialog";
+import { useLanguage, type Translate } from "@/lib/i18n";
 
 interface ProductLocationsFormProps {
   product: Product;
   onClose: () => void;
 }
 
-function getLocationMutationMessage(error: unknown) {
+function getLocationMutationMessage(error: unknown, t: Translate) {
   const status = getErrorStatus(error);
-  if (status === 403) return "You do not have permission to manage locations.";
-  if (status === 409) return "This location is already linked to the product.";
+  if (status === 403) return t("locationForm.forbidden");
+  if (status === 409) return t("locationForm.alreadyLinked");
   return getErrorMessage(error);
 }
 
@@ -36,6 +37,7 @@ export default function LocationForm({
   onClose,
 }: ProductLocationsFormProps) {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<ProductLocationView | null>(
@@ -87,8 +89,8 @@ export default function LocationForm({
 
   function showMutationError(error: unknown) {
     toast({
-      title: "Error",
-      description: getLocationMutationMessage(error),
+      title: t("common.error"),
+      description: getLocationMutationMessage(error, t),
       variant: "destructive",
     });
   }
@@ -99,7 +101,7 @@ export default function LocationForm({
     },
     onSuccess: () => {
       invalidateEntries();
-      toast({ title: "Location added" });
+      toast({ title: t("locationForm.locationAddedToast") });
       closeAddDialog();
     },
     onError: showMutationError,
@@ -111,7 +113,7 @@ export default function LocationForm({
     },
     onSuccess: () => {
       invalidateEntries();
-      toast({ title: "Quantity updated" });
+      toast({ title: t("locationForm.quantityUpdatedToast") });
       setEditingEntry(null);
     },
     onError: showMutationError,
@@ -123,7 +125,7 @@ export default function LocationForm({
     },
     onSuccess: () => {
       invalidateEntries();
-      toast({ title: "Location removed" });
+      toast({ title: t("locationForm.locationRemovedToast") });
       setDeletingEntry(null);
     },
     onError: showMutationError,
@@ -142,10 +144,13 @@ export default function LocationForm({
         </Button>
         <div>
           <h1 className="text-xl font-semibold tracking-tight">
-            Locations: {product.name}
+            {t("locationForm.backTitle", { name: product.name })}
           </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            SKU: {product.sku} · Total quantity: {product.quantity}
+            {t("locationForm.metaLine", {
+              sku: product.sku,
+              quantity: product.quantity,
+            })}
           </p>
         </div>
       </div>
@@ -155,8 +160,8 @@ export default function LocationForm({
       <div className="mb-2 flex items-center justify-between">
         <h2 className="text-sm font-medium text-muted-foreground">
           {entries.length === 0
-            ? "No linked locations"
-            : `${entries.length} location${entries.length === 1 ? "" : "s"}`}
+            ? t("locationForm.noLinkedLocations")
+            : t.plural("locationForm.linkedLocationsCount", entries.length)}
         </h2>
         <Button
           size="sm"
@@ -165,7 +170,7 @@ export default function LocationForm({
           data-testid="button-add-location"
         >
           <Plus className="mr-2 h-4 w-4" />
-          Add location
+          {t("locationForm.addLocation")}
         </Button>
       </div>
 

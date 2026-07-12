@@ -16,10 +16,12 @@ import ProductForm from "@/components/pages/product-form";
 import { ProductsFilters } from "./products-filters";
 import { ProductsTable, type SortKey, type SortDir } from "./products-table";
 import { DeleteProductDialog } from "./products-delete-dialog";
+import { useLanguage } from "@/lib/i18n";
 
 async function fetchProducts(
   search: string,
   categoryFilter: string,
+  fallbackMessage: string,
 ): Promise<Product[]> {
   const params = new URLSearchParams();
   if (search) params.set("q", search);
@@ -31,7 +33,7 @@ async function fetchProducts(
   const res = await fetch(url);
 
   if (!res.ok) {
-    throw await createApiClientErrorFromResponse(res, "Failed to fetch products");
+    throw await createApiClientErrorFromResponse(res, fallbackMessage);
   }
 
   return (await res.json()) as Product[];
@@ -39,6 +41,7 @@ async function fetchProducts(
 
 export default function Products() {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -55,7 +58,8 @@ export default function Products() {
     error,
   } = useQuery<Product[]>({
     queryKey: ["/api/products", { q: search, category: categoryFilter }],
-    queryFn: () => fetchProducts(search, categoryFilter),
+    queryFn: () =>
+      fetchProducts(search, categoryFilter, t("productsTable.loadError")),
   });
 
   const { data: categories = [] } = useQuery<string[]>({
@@ -71,18 +75,21 @@ export default function Products() {
       queryClient.invalidateQueries({ queryKey: ["/api/stats"] });
       queryClient.invalidateQueries({ queryKey: ["/api/categories"] });
       toast({
-        title: "Product deleted",
-        description: "The product has been removed from inventory.",
+        title: t("products.deletedToastTitle"),
+        description: t("products.deletedToastDescription"),
       });
       setDeletingProduct(null);
     },
     onError: (error: unknown) => {
       toast({
-        title: getErrorStatus(error) === 403 ? "Access denied" : "Error",
+        title:
+          getErrorStatus(error) === 403
+            ? t("common.accessDenied")
+            : t("common.error"),
         description:
           getErrorStatus(error) === 403
-            ? "You do not have permission to delete products."
-            : getErrorMessage(error, "Failed to delete the product."),
+            ? t("products.deleteForbidden")
+            : getErrorMessage(error, t("products.deleteFailed")),
         variant: "destructive",
       });
     },
@@ -129,16 +136,16 @@ export default function Products() {
             className="text-xl font-semibold tracking-tight"
             data-testid="text-page-title"
           >
-            Products
+            {t("products.title")}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {products.length} items in inventory
+            {t.plural("products.itemsCount", products.length)}
           </p>
         </div>
 
         <Button onClick={() => setShowForm(true)} data-testid="button-add-product">
           <Plus className="mr-2 h-4 w-4" />
-          Add Product
+          {t("products.addProduct")}
         </Button>
       </div>
 

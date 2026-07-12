@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useLanguage } from "@/lib/i18n";
 
 interface ProductsFiltersProps {
   search: string;
@@ -23,13 +24,15 @@ export function ProductsFilters({
   onCategoryChange,
   categories,
 }: ProductsFiltersProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search by name, SKU, or description..."
+          placeholder={t("productsFilters.searchPlaceholder")}
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           className="pl-9"
@@ -42,10 +45,10 @@ export function ProductsFilters({
           className="w-full sm:w-[180px]"
           data-testid="select-category-filter"
         >
-          <SelectValue placeholder="All Categories" />
+          <SelectValue placeholder={t("productsFilters.allCategories")} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Categories</SelectItem>
+          <SelectItem value="all">{t("productsFilters.allCategories")}</SelectItem>
           {categories.map((cat) => (
             <SelectItem key={cat} value={cat}>
               {cat}

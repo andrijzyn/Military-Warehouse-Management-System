@@ -10,11 +10,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PERMISSIONS, type Permission } from "@/lib/permissions";
+import { useLanguage, type TranslationKey } from "@/lib/i18n";
 
 type AccessLevel = "none" | "read" | "write";
 
 interface PermissionResource {
-  label: string;
+  id: string;
+  labelKey: TranslationKey;
   read: Permission;
   write?: Permission;
   del?: Permission;
@@ -22,24 +24,27 @@ interface PermissionResource {
 
 const RESOURCES: PermissionResource[] = [
   {
-    label: "Products",
+    id: "products",
+    labelKey: "nav.products",
     read: PERMISSIONS.READ_PRODUCTS,
     write: PERMISSIONS.WRITE_PRODUCTS,
     del: PERMISSIONS.DELETE_PRODUCTS,
   },
   {
-    label: "Locations",
+    id: "locations",
+    labelKey: "nav.locations",
     read: PERMISSIONS.READ_LOCATIONS,
     write: PERMISSIONS.WRITE_LOCATIONS,
     del: PERMISSIONS.DELETE_LOCATIONS,
   },
   {
-    label: "Users",
+    id: "users",
+    labelKey: "nav.users",
     read: PERMISSIONS.READ_USERS,
     write: PERMISSIONS.WRITE_USERS,
     del: PERMISSIONS.DELETE_USERS,
   },
-  { label: "Logs", read: PERMISSIONS.READ_LOGS },
+  { id: "logs", labelKey: "permissionDots.logs", read: PERMISSIONS.READ_LOGS },
 ];
 
 const levelStyles: Record<AccessLevel, string> = {
@@ -48,10 +53,10 @@ const levelStyles: Record<AccessLevel, string> = {
   write: "bg-emerald-500",
 };
 
-const levelLabel: Record<AccessLevel, string> = {
-  none: "No access",
-  read: "Can view",
-  write: "Can edit",
+const levelLabelKeys: Record<AccessLevel, TranslationKey> = {
+  none: "permissionDots.noAccess",
+  read: "permissionDots.canView",
+  write: "permissionDots.canEdit",
 };
 
 function accessLevel(
@@ -69,41 +74,47 @@ function accessLevel(
 }
 
 export function PermissionDotsHint() {
+  const { t } = useLanguage();
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <button
           type="button"
           className="inline-flex cursor-help text-muted-foreground"
-          aria-label="Explain permission dot order"
+          aria-label={t("permissionDots.hintAriaLabel")}
           data-testid="permission-dots-hint"
         >
           <Info className="h-3.5 w-3.5" />
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-2 text-xs" sideOffset={4}>
-        Dot order: {RESOURCES.map((r) => r.label).join(", ")}
+        {t("permissionDots.hintPrefix", {
+          list: RESOURCES.map((r) => t(r.labelKey)).join(", "),
+        })}
       </PopoverContent>
     </Popover>
   );
 }
 
 export function PermissionDots({ permissions }: { permissions: Permission[] }) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex items-center gap-1.5" data-testid="permission-dots">
       {RESOURCES.map((resource) => {
         const level = accessLevel(permissions, resource);
 
         return (
-          <Tooltip key={resource.label}>
+          <Tooltip key={resource.id}>
             <TooltipTrigger asChild>
               <span
                 className={`h-2.5 w-2.5 shrink-0 rounded-full ${levelStyles[level]}`}
-                data-testid={`permission-dot-${resource.label.toLowerCase()}-${level}`}
+                data-testid={`permission-dot-${resource.id}-${level}`}
               />
             </TooltipTrigger>
             <TooltipContent>
-              {resource.label}: {levelLabel[level]}
+              {t(resource.labelKey)}: {t(levelLabelKeys[level])}
             </TooltipContent>
           </Tooltip>
         );

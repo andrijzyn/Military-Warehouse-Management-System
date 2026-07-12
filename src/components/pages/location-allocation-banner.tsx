@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 import type { Product } from "@/lib/schema";
+import { useLanguage } from "@/lib/i18n";
 
 interface AllocationBannerProps {
   product: Product;
@@ -9,6 +10,7 @@ interface AllocationBannerProps {
 }
 
 export function AllocationBanner({ product, allocated }: AllocationBannerProps) {
+  const { t } = useLanguage();
   const delta = product.quantity - allocated;
 
   return (
@@ -32,7 +34,7 @@ export function AllocationBanner({ product, allocated }: AllocationBannerProps) 
 
         <div className="flex flex-1 items-center justify-between">
           <div className="text-sm">
-            <span className="font-medium">Allocated: </span>
+            <span className="font-medium">{t("locationAllocationBanner.allocatedLabel")} </span>
             <span className="font-mono">{allocated}</span>
             <span className="text-muted-foreground"> / {product.quantity}</span>
           </div>
@@ -48,10 +50,10 @@ export function AllocationBanner({ product, allocated }: AllocationBannerProps) 
             }
           >
             {delta === 0
-              ? "Balanced"
+              ? t("locationAllocationBanner.balanced")
               : delta > 0
-                ? `Unallocated: +${delta}`
-                : `Exceeded: ${delta}`}
+                ? t("locationAllocationBanner.unallocated", { delta })
+                : t("locationAllocationBanner.exceeded", { delta })}
           </Badge>
         </div>
       </CardContent>

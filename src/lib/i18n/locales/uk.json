@@ -1,0 +1,309 @@
+{
+  "common": {
+    "cancel": "Скасувати",
+    "save": "Зберегти",
+    "saving": "Збереження...",
+    "create": "Створити",
+    "creating": "Створення...",
+    "delete": "Видалити",
+    "deleting": "Видалення...",
+    "remove": "Прибрати",
+    "removing": "Прибирання...",
+    "add": "Додати",
+    "adding": "Додавання...",
+    "loading": "Завантаження...",
+    "loadingProducts": "Завантаження товарів...",
+    "noProductsFound": "Товарів не знайдено",
+    "active": "Активний",
+    "inactive": "Неактивний",
+    "error": "Помилка",
+    "accessDenied": "Доступ заборонено",
+    "actionsHeader": "Дії"
+  },
+  "fields": {
+    "fullName": "Повне ім'я",
+    "username": "Логін",
+    "password": "Пароль",
+    "rank": "Звання",
+    "unit": "Підрозділ",
+    "sku": "Артикул",
+    "category": "Категорія",
+    "quantity": "Кількість",
+    "permissions": "Права доступу",
+    "status": "Статус"
+  },
+  "nav": {
+    "dashboard": "Панель керування",
+    "products": "Товари",
+    "locations": "Локації",
+    "users": "Користувачі",
+    "auditLogs": "Журнал аудиту"
+  },
+  "appShell": {
+    "logoAlt": "Логотип StockPulse",
+    "openNavMenu": "Відкрити меню навігації",
+    "navMenuTitle": "Меню навігації",
+    "lightTheme": "Світла тема",
+    "darkTheme": "Темна тема",
+    "logout": "Вийти",
+    "defaultUserBadge": "Користувач"
+  },
+  "auth": {
+    "loginErrorTitle": "Помилка входу",
+    "incorrectCredentials": "Невірний логін або пароль",
+    "logoutErrorTitle": "Помилка виходу"
+  },
+  "login": {
+    "subtitle": "Система управління складом",
+    "cardHeading": "Вхід у систему",
+    "usernamePlaceholder": "Введіть логін",
+    "passwordPlaceholder": "Введіть пароль",
+    "signingIn": "Вхід…",
+    "signIn": "Увійти",
+    "footerNote": "Доступ надається адміністратором системи"
+  },
+  "dashboard": {
+    "title": "Панель керування",
+    "subtitle": "Огляд стану вашого складу",
+    "loadError": "Не вдалося завантажити дані панелі керування",
+    "totalProducts": "Усього товарів",
+    "totalValue": "Загальна вартість",
+    "lowStock": "Низький запас",
+    "outOfStock": "Немає в наявності",
+    "categories": "Категорії",
+    "lowStockAlerts": "Попередження про низький запас",
+    "allWellStocked": "Усі товари в достатній кількості",
+    "noProductsOutOfStock": "Немає товарів, яких бракує на складі",
+    "outOfStockBadge": "Немає в наявності",
+    "leftSuffix": "залишилось: {{qty}}"
+  },
+  "permissionDots": {
+    "logs": "Журнал",
+    "noAccess": "Немає доступу",
+    "canView": "Перегляд",
+    "canEdit": "Редагування",
+    "hintPrefix": "Порядок точок: {{list}}",
+    "hintAriaLabel": "Пояснення порядку точок дозволів"
+  },
+  "logs": {
+    "title": "Журнал аудиту",
+    "subtitle": "Історія змін системних сутностей та дій користувачів.",
+    "refresh": "Оновити",
+    "fetchError": "Не вдалося завантажити журнал аудиту"
+  },
+  "logsFilters": {
+    "searchPlaceholder": "Пошук за таблицею, ID запису, ID кореляції...",
+    "allTables": "Усі таблиці",
+    "allActions": "Усі дії",
+    "apply": "Застосувати",
+    "reset": "Скинути"
+  },
+  "logsTable": {
+    "loading": "Завантаження журналу аудиту...",
+    "empty": "Записів журналу аудиту не знайдено.",
+    "entityHeader": "Сутність",
+    "actionHeader": "Дія",
+    "actorHeader": "Виконавець",
+    "correlationIdHeader": "ID кореляції",
+    "createdAtHeader": "Створено",
+    "noRecordId": "Немає ID запису",
+    "system": "Система",
+    "collapseDetails": "Згорнути деталі запису",
+    "expandDetails": "Розгорнути деталі запису",
+    "oldValues": "Попередні значення",
+    "noPreviousValues": "Немає попередніх значень",
+    "changes": "Зміни",
+    "newValues": "Нові значення",
+    "noNewValues": "Немає нових значень",
+    "noChanges": "Без змін",
+    "noData": "Немає даних",
+    "old": "Було",
+    "new": "Стало"
+  },
+  "products": {
+    "title": "Товари",
+    "itemsCount": {
+      "one": "{{count}} товар на складі",
+      "few": "{{count}} товари на складі",
+      "many": "{{count}} товарів на складі",
+      "other": "{{count}} товару на складі"
+    },
+    "addProduct": "Додати товар",
+    "deletedToastTitle": "Товар видалено",
+    "deletedToastDescription": "Товар вилучено зі складу.",
+    "deleteForbidden": "У вас немає прав для видалення товарів.",
+    "deleteFailed": "Не вдалося видалити товар."
+  },
+  "productsFilters": {
+    "searchPlaceholder": "Пошук за назвою, артикулом або описом...",
+    "allCategories": "Усі категорії"
+  },
+  "productsTable": {
+    "loading": "Завантаження товарів...",
+    "forbidden": "У вас немає прав для перегляду товарів.",
+    "loadError": "Не вдалося завантажити товари.",
+    "empty": "Товарів не знайдено",
+    "clearFilters": "Очистити фільтри",
+    "nameHeader": "Назва",
+    "qtyHeader": "К-сть",
+    "priceHeader": "Ціна",
+    "outOfStock": "Немає в наявності",
+    "lowStock": "Мало на складі",
+    "inStock": "В наявності"
+  },
+  "productsDeleteDialog": {
+    "title": "Видалити товар",
+    "confirmMessage": "Ви впевнені, що хочете видалити «{{name}}»? Цю дію неможливо скасувати."
+  },
+  "productForm": {
+    "editTitle": "Редагувати товар",
+    "editSubtitle": "Оновіть дані товару нижче",
+    "addSubtitle": "Заповніть дані товару нижче",
+    "nameLabel": "Назва товару",
+    "namePlaceholder": "напр. Бездротова миша",
+    "skuPlaceholder": "напр. WM-001",
+    "categoryPlaceholder": "напр. Електроніка",
+    "priceLabel": "Ціна ($)",
+    "lowStockLabel": "Поріг низького запасу",
+    "descriptionLabel": "Опис",
+    "descriptionPlaceholder": "Необов'язковий опис товару...",
+    "updating": "Оновлення...",
+    "updateProduct": "Оновити товар",
+    "createProduct": "Створити товар",
+    "updatedToastTitle": "Товар оновлено",
+    "createdToastTitle": "Товар створено",
+    "updatedToastDescription": "Товар успішно оновлено.",
+    "createdToastDescription": "Товар додано на склад.",
+    "forbidden": "У вас немає прав для керування товарами.",
+    "skuConflict": "Товар із таким артикулом вже існує."
+  },
+  "users": {
+    "title": "Користувачі",
+    "subtitle": "Керування обліковими записами та рівнями допуску",
+    "totalLabel": "Усього",
+    "activeLabel": "Активні",
+    "loadError": "Не вдалося завантажити користувачів",
+    "fullNameHeader": "Повне ім'я",
+    "callsignHeader": "Позивний",
+    "clearanceHeader": "Допуск",
+    "newUserDialogTitle": "Новий користувач",
+    "newUserDialogDescription": "Створити новий обліковий запис",
+    "editDialogTitle": "Редагування: {{name}}",
+    "editDialogDescription": "Оновити дані облікового запису",
+    "createdToast": "Користувача створено",
+    "savedToast": "Зміни збережено",
+    "deletedToast": "Користувача видалено",
+    "deleteDialogTitle": "Видалити користувача?",
+    "deleteDialogDescription": "Ви впевнені, що хочете видалити {{name}} (@{{username}})? Цю дію неможливо скасувати."
+  },
+  "userForm": {
+    "newPasswordLabel": "Новий пароль (необов'язково)",
+    "callsignLabel": "Позивний",
+    "clearanceLevelLabel": "Рівень допуску",
+    "selectRankPlaceholder": "Оберіть звання",
+    "selectClearancePlaceholder": "Оберіть рівень",
+    "readGroup": "Перегляд",
+    "writeGroup": "Редагування",
+    "deleteGroup": "Видалення",
+    "debugLabel": "Діагностика",
+    "saveChanges": "Зберегти зміни",
+    "createUser": "Створити користувача"
+  },
+  "locations": {
+    "title": "Локації",
+    "subtitle": "Оберіть товар для керування його складськими локаціями",
+    "searchPlaceholder": "Пошук товарів...",
+    "loadErrorFallback": "Не вдалося завантажити товари",
+    "clearSearch": "Очистити пошук",
+    "productHeader": "Товар"
+  },
+  "locationForm": {
+    "forbidden": "У вас немає прав для керування локаціями.",
+    "alreadyLinked": "Ця локація вже пов'язана з товаром.",
+    "backTitle": "Локації: {{name}}",
+    "metaLine": "Артикул: {{sku}} · Загальна кількість: {{quantity}}",
+    "noLinkedLocations": "Немає пов'язаних локацій",
+    "linkedLocationsCount": {
+      "one": "{{count}} локація",
+      "few": "{{count}} локації",
+      "many": "{{count}} локацій",
+      "other": "{{count}} локації"
+    },
+    "addLocation": "Додати локацію",
+    "locationAddedToast": "Локацію додано",
+    "quantityUpdatedToast": "Кількість оновлено",
+    "locationRemovedToast": "Локацію видалено"
+  },
+  "locationSearch": {
+    "placeholder": "Введіть мітку... (R001C007L10)",
+    "noResults": "Локацій не знайдено"
+  },
+  "locationEntriesTable": {
+    "empty": "У цього товару ще немає пов'язаних локацій",
+    "locationHeader": "Локація",
+    "quantityHeader": "Кількість"
+  },
+  "locationAddDialog": {
+    "locationLabel": "Локація"
+  },
+  "locationDeleteDialog": {
+    "title": "Прибрати локацію?",
+    "confirmMessagePart1": "Зв'язок між цим товаром і локацією {{label}} буде видалено.",
+    "unitsReturn": {
+      "one": "{{count}} одиниця повернеться до нерозподіленого залишку.",
+      "few": "{{count}} одиниці повернуться до нерозподіленого залишку.",
+      "many": "{{count}} одиниць повернуться до нерозподіленого залишку.",
+      "other": "{{count}} одиниці повернеться до нерозподіленого залишку."
+    }
+  },
+  "locationAllocationBanner": {
+    "allocatedLabel": "Розподілено:",
+    "balanced": "Збалансовано",
+    "unallocated": "Нерозподілено: +{{delta}}",
+    "exceeded": "Перевищено: {{delta}}"
+  },
+  "validation": {
+    "nameRequired": "Назва обов'язкова",
+    "skuRequired": "Артикул обов'язковий",
+    "categoryRequired": "Категорія обов'язкова",
+    "levelRange": "Рівень має бути 0, 10, 20, 30, 40, 50 або 60",
+    "invalidProductId": "Недійсний ID товару",
+    "invalidLocationId": "Недійсний ID локації",
+    "quantityMin": "Кількість має бути 0 або більше",
+    "usernameMin": "Мінімум 3 символи",
+    "passwordMin": "Мінімум 6 символів",
+    "required": "Обов'язкове поле",
+    "usernameRequired": "Логін обов'язковий",
+    "passwordRequired": "Пароль обов'язковий"
+  },
+  "ranks": {
+    "private": "Рядовий",
+    "seniorPrivate": "Старший солдат",
+    "juniorSergeant": "Молодший сержант",
+    "sergeant": "Сержант",
+    "seniorSergeant": "Старший сержант",
+    "chiefSergeant": "Головний сержант",
+    "staffSergeant": "Штаб-сержант",
+    "masterSergeant": "Майстер-сержант",
+    "seniorMasterSergeant": "Старший майстер-сержант",
+    "chiefMasterSergeant": "Головний майстер-сержант",
+    "juniorLieutenant": "Молодший лейтенант",
+    "lieutenant": "Лейтенант",
+    "seniorLieutenant": "Старший лейтенант",
+    "captain": "Капітан",
+    "major": "Майор",
+    "lieutenantColonel": "Підполковник",
+    "colonel": "Полковник",
+    "brigadierGeneral": "Бригадний генерал",
+    "majorGeneral": "Генерал-майор",
+    "lieutenantGeneral": "Генерал-лейтенант",
+    "general": "Генерал"
+  },
+  "clearanceLevels": {
+    "none": "Без допуску",
+    "officialUseOnly": "Для службового користування",
+    "secret": "Таємно",
+    "topSecret": "Цілком таємно",
+    "specialImportance": "Особливої важливості"
+  }
+}

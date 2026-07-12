@@ -1,0 +1,303 @@
+{
+  "common": {
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "saving": "Wird gespeichert...",
+    "create": "Erstellen",
+    "creating": "Wird erstellt...",
+    "delete": "Löschen",
+    "deleting": "Wird gelöscht...",
+    "remove": "Entfernen",
+    "removing": "Wird entfernt...",
+    "add": "Hinzufügen",
+    "adding": "Wird hinzugefügt...",
+    "loading": "Wird geladen...",
+    "loadingProducts": "Produkte werden geladen...",
+    "noProductsFound": "Keine Produkte gefunden",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "error": "Fehler",
+    "accessDenied": "Zugriff verweigert",
+    "actionsHeader": "Aktionen"
+  },
+  "fields": {
+    "fullName": "Vollständiger Name",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "rank": "Dienstgrad",
+    "unit": "Einheit",
+    "sku": "Artikelnummer",
+    "category": "Kategorie",
+    "quantity": "Menge",
+    "permissions": "Berechtigungen",
+    "status": "Status"
+  },
+  "nav": {
+    "dashboard": "Übersicht",
+    "products": "Produkte",
+    "locations": "Standorte",
+    "users": "Benutzer",
+    "auditLogs": "Prüfprotokoll"
+  },
+  "appShell": {
+    "logoAlt": "StockPulse-Logo",
+    "openNavMenu": "Navigationsmenü öffnen",
+    "navMenuTitle": "Navigationsmenü",
+    "lightTheme": "Helles Design",
+    "darkTheme": "Dunkles Design",
+    "logout": "Abmelden",
+    "defaultUserBadge": "Benutzer"
+  },
+  "auth": {
+    "loginErrorTitle": "Anmeldefehler",
+    "incorrectCredentials": "Falscher Benutzername oder falsches Passwort",
+    "logoutErrorTitle": "Fehler beim Abmelden"
+  },
+  "login": {
+    "subtitle": "Lagerverwaltungssystem",
+    "cardHeading": "Systemanmeldung",
+    "usernamePlaceholder": "Benutzername eingeben",
+    "passwordPlaceholder": "Passwort eingeben",
+    "signingIn": "Anmeldung läuft…",
+    "signIn": "Anmelden",
+    "footerNote": "Der Zugang wird vom Systemadministrator erteilt"
+  },
+  "dashboard": {
+    "title": "Übersicht",
+    "subtitle": "Überblick über Ihren Lagerbestand",
+    "loadError": "Übersichtsdaten konnten nicht geladen werden",
+    "totalProducts": "Produkte gesamt",
+    "totalValue": "Gesamtwert",
+    "lowStock": "Niedriger Bestand",
+    "outOfStock": "Nicht vorrätig",
+    "categories": "Kategorien",
+    "lowStockAlerts": "Warnungen bei niedrigem Bestand",
+    "allWellStocked": "Alle Produkte sind ausreichend vorrätig",
+    "noProductsOutOfStock": "Keine Produkte sind nicht vorrätig",
+    "outOfStockBadge": "Nicht vorrätig",
+    "leftSuffix": "{{qty}} übrig"
+  },
+  "permissionDots": {
+    "logs": "Protokoll",
+    "noAccess": "Kein Zugriff",
+    "canView": "Ansehen",
+    "canEdit": "Bearbeiten",
+    "hintPrefix": "Reihenfolge der Punkte: {{list}}",
+    "hintAriaLabel": "Reihenfolge der Berechtigungspunkte erklären"
+  },
+  "logs": {
+    "title": "Prüfprotokoll",
+    "subtitle": "Verlauf der Änderungen an Systemobjekten und Benutzeraktionen.",
+    "refresh": "Aktualisieren",
+    "fetchError": "Prüfprotokoll konnte nicht geladen werden"
+  },
+  "logsFilters": {
+    "searchPlaceholder": "Tabelle, Datensatz-ID, Korrelations-ID suchen...",
+    "allTables": "Alle Tabellen",
+    "allActions": "Alle Aktionen",
+    "apply": "Anwenden",
+    "reset": "Zurücksetzen"
+  },
+  "logsTable": {
+    "loading": "Prüfprotokoll wird geladen...",
+    "empty": "Keine Protokolleinträge gefunden.",
+    "entityHeader": "Entität",
+    "actionHeader": "Aktion",
+    "actorHeader": "Ausführende Person",
+    "correlationIdHeader": "Korrelations-ID",
+    "createdAtHeader": "Erstellt am",
+    "noRecordId": "Keine Datensatz-ID",
+    "system": "System",
+    "collapseDetails": "Protokolldetails einklappen",
+    "expandDetails": "Protokolldetails ausklappen",
+    "oldValues": "Alte Werte",
+    "noPreviousValues": "Keine vorherigen Werte",
+    "changes": "Änderungen",
+    "newValues": "Neue Werte",
+    "noNewValues": "Keine neuen Werte",
+    "noChanges": "Keine Änderungen",
+    "noData": "Keine Daten",
+    "old": "Alt",
+    "new": "Neu"
+  },
+  "products": {
+    "title": "Produkte",
+    "itemsCount": {
+      "one": "{{count}} Artikel auf Lager",
+      "other": "{{count}} Artikel auf Lager"
+    },
+    "addProduct": "Produkt hinzufügen",
+    "deletedToastTitle": "Produkt gelöscht",
+    "deletedToastDescription": "Das Produkt wurde aus dem Lagerbestand entfernt.",
+    "deleteForbidden": "Sie haben keine Berechtigung, Produkte zu löschen.",
+    "deleteFailed": "Das Produkt konnte nicht gelöscht werden."
+  },
+  "productsFilters": {
+    "searchPlaceholder": "Suche nach Name, Artikelnummer oder Beschreibung...",
+    "allCategories": "Alle Kategorien"
+  },
+  "productsTable": {
+    "loading": "Produkte werden geladen...",
+    "forbidden": "Sie haben keine Berechtigung, Produkte anzuzeigen.",
+    "loadError": "Produkte konnten nicht geladen werden.",
+    "empty": "Keine Produkte gefunden",
+    "clearFilters": "Filter zurücksetzen",
+    "nameHeader": "Name",
+    "qtyHeader": "Menge",
+    "priceHeader": "Preis",
+    "outOfStock": "Nicht vorrätig",
+    "lowStock": "Niedriger Bestand",
+    "inStock": "Vorrätig"
+  },
+  "productsDeleteDialog": {
+    "title": "Produkt löschen",
+    "confirmMessage": "Sind Sie sicher, dass Sie \"{{name}}\" löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "productForm": {
+    "editTitle": "Produkt bearbeiten",
+    "editSubtitle": "Aktualisieren Sie die Produktdaten unten",
+    "addSubtitle": "Geben Sie die Produktdaten unten ein",
+    "nameLabel": "Produktname",
+    "namePlaceholder": "z. B. Kabellose Maus",
+    "skuPlaceholder": "z. B. WM-001",
+    "categoryPlaceholder": "z. B. Elektronik",
+    "priceLabel": "Preis ($)",
+    "lowStockLabel": "Warnschwelle für niedrigen Bestand",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Optionale Produktbeschreibung...",
+    "updating": "Wird aktualisiert...",
+    "updateProduct": "Produkt aktualisieren",
+    "createProduct": "Produkt erstellen",
+    "updatedToastTitle": "Produkt aktualisiert",
+    "createdToastTitle": "Produkt erstellt",
+    "updatedToastDescription": "Das Produkt wurde erfolgreich aktualisiert.",
+    "createdToastDescription": "Das Produkt wurde dem Lagerbestand hinzugefügt.",
+    "forbidden": "Sie haben keine Berechtigung, Produkte zu verwalten.",
+    "skuConflict": "Ein Produkt mit dieser Artikelnummer existiert bereits."
+  },
+  "users": {
+    "title": "Benutzer",
+    "subtitle": "Konten und Freigabestufen verwalten",
+    "totalLabel": "Gesamt",
+    "activeLabel": "Aktiv",
+    "loadError": "Benutzer konnten nicht geladen werden",
+    "fullNameHeader": "Vollständiger Name",
+    "callsignHeader": "Rufzeichen",
+    "clearanceHeader": "Freigabe",
+    "newUserDialogTitle": "Neuer Benutzer",
+    "newUserDialogDescription": "Neues Benutzerkonto erstellen",
+    "editDialogTitle": "Bearbeiten: {{name}}",
+    "editDialogDescription": "Benutzerkontodaten aktualisieren",
+    "createdToast": "Benutzer erstellt",
+    "savedToast": "Änderungen gespeichert",
+    "deletedToast": "Benutzer gelöscht",
+    "deleteDialogTitle": "Benutzer löschen?",
+    "deleteDialogDescription": "Sind Sie sicher, dass Sie {{name}} (@{{username}}) löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+  },
+  "userForm": {
+    "newPasswordLabel": "Neues Passwort (optional)",
+    "callsignLabel": "Rufzeichen",
+    "clearanceLevelLabel": "Freigabestufe",
+    "selectRankPlaceholder": "Dienstgrad wählen",
+    "selectClearancePlaceholder": "Stufe wählen",
+    "readGroup": "Lesen",
+    "writeGroup": "Schreiben",
+    "deleteGroup": "Löschen",
+    "debugLabel": "Diagnose",
+    "saveChanges": "Änderungen speichern",
+    "createUser": "Benutzer erstellen"
+  },
+  "locations": {
+    "title": "Standorte",
+    "subtitle": "Wählen Sie ein Produkt, um dessen Lagerstandorte zu verwalten",
+    "searchPlaceholder": "Produkte durchsuchen...",
+    "loadErrorFallback": "Produkte konnten nicht geladen werden",
+    "clearSearch": "Suche zurücksetzen",
+    "productHeader": "Produkt"
+  },
+  "locationForm": {
+    "forbidden": "Sie haben keine Berechtigung, Standorte zu verwalten.",
+    "alreadyLinked": "Dieser Standort ist bereits mit dem Produkt verknüpft.",
+    "backTitle": "Standorte: {{name}}",
+    "metaLine": "Artikelnummer: {{sku}} · Gesamtmenge: {{quantity}}",
+    "noLinkedLocations": "Keine verknüpften Standorte",
+    "linkedLocationsCount": {
+      "one": "{{count}} Standort",
+      "other": "{{count}} Standorte"
+    },
+    "addLocation": "Standort hinzufügen",
+    "locationAddedToast": "Standort hinzugefügt",
+    "quantityUpdatedToast": "Menge aktualisiert",
+    "locationRemovedToast": "Standort entfernt"
+  },
+  "locationSearch": {
+    "placeholder": "Bezeichnung eingeben... (R001C007L10)",
+    "noResults": "Keine Standorte gefunden"
+  },
+  "locationEntriesTable": {
+    "empty": "Dieses Produkt hat noch keine verknüpften Standorte",
+    "locationHeader": "Standort",
+    "quantityHeader": "Menge"
+  },
+  "locationAddDialog": {
+    "locationLabel": "Standort"
+  },
+  "locationDeleteDialog": {
+    "title": "Standort entfernen?",
+    "confirmMessagePart1": "Die Verknüpfung zwischen diesem Produkt und dem Standort {{label}} wird entfernt.",
+    "unitsReturn": {
+      "one": "{{count}} Einheit wird dem nicht zugewiesenen Bestand zurückgegeben.",
+      "other": "{{count}} Einheiten werden dem nicht zugewiesenen Bestand zurückgegeben."
+    }
+  },
+  "locationAllocationBanner": {
+    "allocatedLabel": "Zugewiesen:",
+    "balanced": "Ausgeglichen",
+    "unallocated": "Nicht zugewiesen: +{{delta}}",
+    "exceeded": "Überschritten: {{delta}}"
+  },
+  "validation": {
+    "nameRequired": "Name ist erforderlich",
+    "skuRequired": "Artikelnummer ist erforderlich",
+    "categoryRequired": "Kategorie ist erforderlich",
+    "levelRange": "Ebene muss 0, 10, 20, 30, 40, 50 oder 60 sein",
+    "invalidProductId": "Ungültige Produkt-ID",
+    "invalidLocationId": "Ungültige Standort-ID",
+    "quantityMin": "Menge muss 0 oder mehr sein",
+    "usernameMin": "Mindestens 3 Zeichen",
+    "passwordMin": "Mindestens 6 Zeichen",
+    "required": "Erforderlich",
+    "usernameRequired": "Benutzername ist erforderlich",
+    "passwordRequired": "Passwort ist erforderlich"
+  },
+  "ranks": {
+    "private": "Schütze",
+    "seniorPrivate": "Gefreiter",
+    "juniorSergeant": "Obergefreiter",
+    "sergeant": "Hauptgefreiter",
+    "seniorSergeant": "Stabsgefreiter",
+    "chiefSergeant": "Oberstabsgefreiter",
+    "staffSergeant": "Unteroffizier",
+    "masterSergeant": "Stabsunteroffizier",
+    "seniorMasterSergeant": "Feldwebel",
+    "chiefMasterSergeant": "Oberfeldwebel",
+    "juniorLieutenant": "Fähnrich",
+    "lieutenant": "Leutnant",
+    "seniorLieutenant": "Oberleutnant",
+    "captain": "Hauptmann",
+    "major": "Major",
+    "lieutenantColonel": "Oberstleutnant",
+    "colonel": "Oberst",
+    "brigadierGeneral": "Brigadegeneral",
+    "majorGeneral": "Generalmajor",
+    "lieutenantGeneral": "Generalleutnant",
+    "general": "General"
+  },
+  "clearanceLevels": {
+    "none": "Keine Freigabe",
+    "officialUseOnly": "Nur für den Dienstgebrauch",
+    "secret": "Geheim",
+    "topSecret": "Streng geheim",
+    "specialImportance": "Von besonderer Bedeutung"
+  }
+}

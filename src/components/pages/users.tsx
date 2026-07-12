@@ -44,6 +44,7 @@ import {
   PermissionDots,
   PermissionDotsHint,
 } from "@/components/pages/permission-dots";
+import { useLanguage, translateRank, translateClearance } from "@/lib/i18n";
 
 function clearanceBadgeVariant(level: string) {
   switch (level) {
@@ -62,6 +63,7 @@ function clearanceBadgeVariant(level: string) {
 export default function UsersPage() {
   const { user: currentUser } = useAuth();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editUser, setEditUser] = useState<SafeUser | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<SafeUser | null>(null);
@@ -83,12 +85,12 @@ export default function UsersPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/users"] });
       setDialogOpen(false);
-      toast({ title: "User created" });
+      toast({ title: t("users.createdToast") });
     },
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: t("common.error"),
         description: error.message,
       });
     },
@@ -104,12 +106,12 @@ export default function UsersPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/users"] });
       setEditUser(null);
-      toast({ title: "Changes saved" });
+      toast({ title: t("users.savedToast") });
     },
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: t("common.error"),
         description: error.message,
       });
     },
@@ -122,12 +124,12 @@ export default function UsersPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/users"] });
       setDeleteTarget(null);
-      toast({ title: "User deleted" });
+      toast({ title: t("users.deletedToast") });
     },
     onError: (error: Error) => {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: t("common.error"),
         description: error.message,
       });
     },
@@ -143,10 +145,10 @@ export default function UsersPage() {
             className="text-xl font-semibold tracking-tight"
             data-testid="text-page-title"
           >
-            Users
+            {t("users.title")}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Manage accounts and clearances
+            {t("users.subtitle")}
           </p>
         </div>
         <Button
@@ -155,16 +157,16 @@ export default function UsersPage() {
           data-testid="button-add-user"
         >
           <UserPlus className="mr-2 h-4 w-4" />
-          Add
+          {t("common.add")}
         </Button>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
         {[
-          { label: "Total", value: users.length },
-          { label: "Active", value: activeCount },
-        ].map(({ label, value }) => (
-          <Card key={label}>
+          { id: "total", label: t("users.totalLabel"), value: users.length },
+          { id: "active", label: t("users.activeLabel"), value: activeCount },
+        ].map(({ id, label, value }) => (
+          <Card key={id}>
             <CardContent className="p-4">
               <p className="text-xs text-muted-foreground">{label}</p>
               <p className="text-2xl font-semibold tabular-nums">{value}</p>
@@ -184,25 +186,25 @@ export default function UsersPage() {
           ) : isError ? (
             <div className="flex items-center justify-center py-16">
               <div className="text-sm text-destructive">
-                {getErrorMessage(error, "Failed to load users")}
+                {getErrorMessage(error, t("users.loadError"))}
               </div>
             </div>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Full name</TableHead>
-                  <TableHead>Rank</TableHead>
-                  <TableHead>Unit</TableHead>
-                  <TableHead>Callsign</TableHead>
-                  <TableHead>Clearance</TableHead>
+                  <TableHead>{t("users.fullNameHeader")}</TableHead>
+                  <TableHead>{t("fields.rank")}</TableHead>
+                  <TableHead>{t("fields.unit")}</TableHead>
+                  <TableHead>{t("users.callsignHeader")}</TableHead>
+                  <TableHead>{t("users.clearanceHeader")}</TableHead>
                   <TableHead>
                     <span className="inline-flex items-center gap-1.5">
-                      Permissions
+                      {t("fields.permissions")}
                       <PermissionDotsHint />
                     </span>
                   </TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableHead>{t("fields.status")}</TableHead>
                   <TableHead className="w-[80px]" />
                 </TableRow>
               </TableHeader>
@@ -215,14 +217,14 @@ export default function UsersPage() {
                         @{u.username}
                       </p>
                     </TableCell>
-                    <TableCell className="text-sm">{u.rank}</TableCell>
+                    <TableCell className="text-sm">{translateRank(t, u.rank)}</TableCell>
                     <TableCell className="text-sm">{u.unit}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {u.callsign || "—"}
                     </TableCell>
                     <TableCell>
                       <Badge variant={clearanceBadgeVariant(u.clearance_level)}>
-                        {u.clearance_level}
+                        {translateClearance(t, u.clearance_level)}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -230,7 +232,7 @@ export default function UsersPage() {
                     </TableCell>
                     <TableCell>
                       <Badge variant={u.is_active ? "default" : "secondary"}>
-                        {u.is_active ? "Active" : "Inactive"}
+                        {u.is_active ? t("common.active") : t("common.inactive")}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -268,8 +270,10 @@ export default function UsersPage() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>New user</DialogTitle>
-            <DialogDescription>Create a new user account</DialogDescription>
+            <DialogTitle>{t("users.newUserDialogTitle")}</DialogTitle>
+            <DialogDescription>
+              {t("users.newUserDialogDescription")}
+            </DialogDescription>
           </DialogHeader>
           <UserForm
             onSubmit={(data) => createMutation.mutate(data)}
@@ -284,8 +288,12 @@ export default function UsersPage() {
       >
         <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Edit: {editUser?.full_name}</DialogTitle>
-            <DialogDescription>Update user account details</DialogDescription>
+            <DialogTitle>
+              {t("users.editDialogTitle", { name: editUser?.full_name ?? "" })}
+            </DialogTitle>
+            <DialogDescription>
+              {t("users.editDialogDescription")}
+            </DialogDescription>
           </DialogHeader>
           {editUser && (
             <UserForm
@@ -319,21 +327,23 @@ export default function UsersPage() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete user?</AlertDialogTitle>
+            <AlertDialogTitle>{t("users.deleteDialogTitle")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete {deleteTarget?.full_name} (@
-              {deleteTarget?.username})? This action cannot be undone.
+              {t("users.deleteDialogDescription", {
+                name: deleteTarget?.full_name ?? "",
+                username: deleteTarget?.username ?? "",
+              })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() =>
                 deleteTarget && deleteMutation.mutate(deleteTarget.id)
               }
               data-testid="button-confirm-delete"
             >
-              Delete
+              {t("common.delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

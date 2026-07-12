@@ -13,6 +13,7 @@ import {
   FolderTree,
   Logs,
   Menu,
+  Languages,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +23,13 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Dashboard from "@/components/pages/dashboard";
 import Products from "@/components/pages/products";
 import UsersPage from "@/components/pages/users";
@@ -29,6 +37,14 @@ import LocationsPage from "@/components/pages/locations";
 import LogsPage from "@/components/pages/logs";
 import { Permission, PERMISSIONS } from "@/lib/permissions";
 import type { SafeUser } from "@/lib/userTypes";
+import {
+  useLanguage,
+  translateRank,
+  translateClearance,
+  LOCALES,
+  type Locale,
+  type Translate,
+} from "@/lib/i18n";
 
 type Page = "dashboard" | "products" | "users" | "locations" | "logs";
 
@@ -38,6 +54,13 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
 }
 
+const LANGUAGE_NAMES: Record<Locale, string> = {
+  en: "English",
+  uk: "Українська",
+  hr: "Hrvatski",
+  de: "Deutsch",
+};
+
 interface SidebarContentProps {
   navItems: NavItem[];
   currentPage: Page;
@@ -46,6 +69,9 @@ interface SidebarContentProps {
   dark: boolean;
   onToggleDark: () => void;
   onLogout: () => void;
+  t: Translate;
+  language: Locale;
+  onLanguageChange: (locale: Locale) => void;
 }
 
 function SidebarContent({
@@ -56,6 +82,9 @@ function SidebarContent({
   dark,
   onToggleDark,
   onLogout,
+  t,
+  language,
+  onLanguageChange,
 }: SidebarContentProps) {
   return (
     <div className="flex h-full flex-col bg-sidebar">
@@ -67,7 +96,7 @@ function SidebarContent({
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            aria-label="StockPulse logo"
+            aria-label={t("appShell.logoAlt")}
           >
             <rect
               x="2"
@@ -117,7 +146,7 @@ function SidebarContent({
                   ? "bg-sidebar-accent text-sidebar-foreground"
                   : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
               }`}
-              data-testid={`link-${label.toLowerCase()}`}
+              data-testid={`link-${page}`}
             >
               <Icon className="h-4 w-4 shrink-0" />
               <span className="truncate">{label}</span>
@@ -143,7 +172,7 @@ function SidebarContent({
                   {user.callsign ? user.callsign : user.full_name}
                 </p>
                 <p className="truncate text-[10px] text-muted-foreground">
-                  {user.rank}
+                  {translateRank(t, user.rank)}
                 </p>
               </div>
             </div>
@@ -152,12 +181,34 @@ function SidebarContent({
               variant="outline"
               className="h-5 px-1.5 py-0 text-[10px] font-normal"
             >
-              {user.clearance_level}
+              {translateClearance(t, user.clearance_level)}
             </Badge>
           </div>
         )}
 
         <div className="space-y-1.5 px-3 pb-5">
+          <div className="flex h-9 items-center gap-2 px-3">
+            <Languages className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+            <Select
+              value={language}
+              onValueChange={(value) => onLanguageChange(value as Locale)}
+            >
+              <SelectTrigger
+                className="h-9 flex-1 border-none bg-transparent px-0 text-xs shadow-none focus:ring-0"
+                data-testid="select-language"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {LOCALES.map((locale) => (
+                  <SelectItem key={locale} value={locale}>
+                    {LANGUAGE_NAMES[locale]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <Button
             variant="ghost"
             size="sm"
@@ -170,7 +221,7 @@ function SidebarContent({
             ) : (
               <Moon className="h-3.5 w-3.5" />
             )}
-            {dark ? "Light theme" : "Dark theme"}
+            {dark ? t("appShell.lightTheme") : t("appShell.darkTheme")}
           </Button>
 
           <Button
@@ -181,7 +232,7 @@ function SidebarContent({
             data-testid="button-logout"
           >
             <LogOut className="h-3.5 w-3.5" />
-            Logout
+            {t("appShell.logout")}
           </Button>
         </div>
       </div>
@@ -191,6 +242,7 @@ function SidebarContent({
 
 export default function AppShell() {
   const { user, logout } = useAuth();
+  const { t, language, setLanguage } = useLanguage();
   const [currentPage, setCurrentPage] = useState<Page>("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dark, setDark] = useState(
@@ -207,22 +259,22 @@ export default function AppShell() {
     user?.permissions?.includes(permission) ?? false;
 
   const navItems = [
-    { page: "dashboard" as Page, label: "Dashboard", icon: LayoutDashboard },
+    { page: "dashboard" as Page, label: t("nav.dashboard"), icon: LayoutDashboard },
 
     ...(hasPermission(PERMISSIONS.READ_PRODUCTS)
-      ? [{ page: "products" as Page, label: "Products", icon: Package }]
+      ? [{ page: "products" as Page, label: t("nav.products"), icon: Package }]
       : []),
 
     ...(hasPermission(PERMISSIONS.READ_LOCATIONS)
-      ? [{ page: "locations" as Page, label: "Locations", icon: FolderTree }]
+      ? [{ page: "locations" as Page, label: t("nav.locations"), icon: FolderTree }]
       : []),
 
     ...(hasPermission(PERMISSIONS.READ_USERS)
-      ? [{ page: "users" as Page, label: "Users", icon: Users }]
+      ? [{ page: "users" as Page, label: t("nav.users"), icon: Users }]
       : []),
 
     ...(hasPermission(PERMISSIONS.READ_LOGS)
-      ? [{ page: "logs" as Page, label: "Audit Logs", icon: Logs }]
+      ? [{ page: "logs" as Page, label: t("nav.auditLogs"), icon: Logs }]
       : []),
   ];
 
@@ -275,6 +327,9 @@ export default function AppShell() {
       setSidebarOpen(false);
       logout();
     },
+    t,
+    language,
+    onLanguageChange: setLanguage,
   };
 
   return (
@@ -294,7 +349,7 @@ export default function AppShell() {
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetContent side="left" className="w-[280px] p-0 sm:w-[320px]">
           <SheetHeader className="sr-only">
-            <SheetTitle>Navigation menu</SheetTitle>
+            <SheetTitle>{t("appShell.navMenuTitle")}</SheetTitle>
           </SheetHeader>
           <SidebarContent {...sidebarProps} />
         </SheetContent>
@@ -310,7 +365,7 @@ export default function AppShell() {
               size="icon"
               className="h-9 w-9"
               onClick={() => setSidebarOpen(true)}
-              aria-label="Open navigation menu"
+              aria-label={t("appShell.openNavMenu")}
             >
               <Menu className="h-5 w-5" />
             </Button>
@@ -358,7 +413,9 @@ export default function AppShell() {
           </div>
 
           <Badge variant="outline" className="max-w-[120px] truncate text-[10px]">
-            {user?.clearance_level ?? "User"}
+            {user?.clearance_level
+              ? translateClearance(t, user.clearance_level)
+              : t("appShell.defaultUserBadge")}
           </Badge>
         </header>
 

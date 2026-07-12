@@ -12,11 +12,12 @@ import {
 import { Pencil, Trash2, ArrowUpDown } from "lucide-react";
 import { getErrorMessage, getErrorStatus } from "@/lib/apiClientError";
 import type { Product } from "@/lib/schema";
+import { useLanguage, type Translate } from "@/lib/i18n";
 
 export type SortKey = "name" | "sku" | "category" | "quantity" | "price";
 export type SortDir = "asc" | "desc";
 
-function getStockBadge(product: Product) {
+function getStockBadge(product: Product, t: Translate) {
   if (product.quantity === 0) {
     return (
       <Badge
@@ -24,7 +25,7 @@ function getStockBadge(product: Product) {
         className="text-xs"
         data-testid={`status-stock-${product.id}`}
       >
-        Out of stock
+        {t("productsTable.outOfStock")}
       </Badge>
     );
   }
@@ -36,7 +37,7 @@ function getStockBadge(product: Product) {
         className="border-amber-300 text-xs text-amber-600 dark:border-amber-700 dark:text-amber-400"
         data-testid={`status-stock-${product.id}`}
       >
-        Low stock
+        {t("productsTable.lowStock")}
       </Badge>
     );
   }
@@ -47,7 +48,7 @@ function getStockBadge(product: Product) {
       className="border-emerald-300 text-xs text-emerald-600 dark:border-emerald-700 dark:text-emerald-400"
       data-testid={`status-stock-${product.id}`}
     >
-      In stock
+      {t("productsTable.inStock")}
     </Badge>
   );
 }
@@ -114,6 +115,7 @@ export function ProductsTable({
   sortDir,
   onToggleSort,
 }: ProductsTableProps) {
+  const { t } = useLanguage();
   const sortProps = { sortKey, sortDir, onToggle: onToggleSort };
 
   return (
@@ -121,19 +123,23 @@ export function ProductsTable({
       <CardContent className="p-0">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
-            <div className="text-sm text-muted-foreground">Loading products...</div>
+            <div className="text-sm text-muted-foreground">
+              {t("productsTable.loading")}
+            </div>
           </div>
         ) : isError ? (
           <div className="flex flex-col items-center justify-center py-16">
             <p className="text-sm text-destructive">
               {getErrorStatus(error) === 403
-                ? "You do not have permission to view products."
-                : getErrorMessage(error, "Failed to fetch products.")}
+                ? t("productsTable.forbidden")
+                : getErrorMessage(error, t("productsTable.loadError"))}
             </p>
           </div>
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <p className="text-sm text-muted-foreground">No products found</p>
+            <p className="text-sm text-muted-foreground">
+              {t("productsTable.empty")}
+            </p>
             {(search || categoryFilter !== "all") && (
               <Button
                 variant="ghost"
@@ -142,7 +148,7 @@ export function ProductsTable({
                 onClick={onClearFilters}
                 data-testid="button-clear-filters"
               >
-                Clear filters
+                {t("productsTable.clearFilters")}
               </Button>
             )}
           </div>
@@ -151,22 +157,22 @@ export function ProductsTable({
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[280px]">
-                  <SortButton column="name" label="Name" {...sortProps} />
+                  <SortButton column="name" label={t("productsTable.nameHeader")} {...sortProps} />
                 </TableHead>
                 <TableHead className="w-[120px]">
-                  <SortButton column="sku" label="SKU" {...sortProps} />
+                  <SortButton column="sku" label={t("fields.sku")} {...sortProps} />
                 </TableHead>
                 <TableHead className="w-[130px]">
-                  <SortButton column="category" label="Category" {...sortProps} />
+                  <SortButton column="category" label={t("fields.category")} {...sortProps} />
                 </TableHead>
                 <TableHead className="w-[100px] text-right">
-                  <SortButton column="quantity" label="Qty" {...sortProps} />
+                  <SortButton column="quantity" label={t("productsTable.qtyHeader")} {...sortProps} />
                 </TableHead>
                 <TableHead className="w-[100px] text-right">
-                  <SortButton column="price" label="Price" {...sortProps} />
+                  <SortButton column="price" label={t("productsTable.priceHeader")} {...sortProps} />
                 </TableHead>
-                <TableHead className="w-[100px]">Status</TableHead>
-                <TableHead className="w-[90px] text-right">Actions</TableHead>
+                <TableHead className="w-[100px]">{t("fields.status")}</TableHead>
+                <TableHead className="w-[90px] text-right">{t("common.actionsHeader")}</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -202,7 +208,7 @@ export function ProductsTable({
                     ${product.price.toFixed(2)}
                   </TableCell>
 
-                  <TableCell>{getStockBadge(product)}</TableCell>
+                  <TableCell>{getStockBadge(product, t)}</TableCell>
 
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-1">
